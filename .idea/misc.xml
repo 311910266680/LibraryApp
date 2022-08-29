@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/custom_input_search.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/gradient.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/tranpa.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_book.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_pick.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_recenty.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/menu/bottom_menu.xml" value="0.14722222222222223" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
