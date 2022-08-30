@@ -3,11 +3,12 @@
     <item android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/ic_baseline_home_24"/>
-    <item android:id="@+id/br"
-        android:title="Borrowed"
-        android:icon="@drawable/ic_baseline_library_books_24"/>
     <item android:id="@+id/search"
         android:title="Search"
+        android:icon="@drawable/ic_baseline_library_books_24"/>
+    <item
+        android:title=""
+
      />
     <item android:id="@+id/fvr"
         android:title="Favorite"

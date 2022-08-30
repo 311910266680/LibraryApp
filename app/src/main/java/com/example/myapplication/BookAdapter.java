@@ -41,9 +41,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             return;
         }
         Picasso.get().load(Book.getImage()).into(holder.Image);
-
     }
-
 
     @Override
     public int getItemCount() {

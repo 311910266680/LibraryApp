@@ -9,13 +9,21 @@
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.161" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.161" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.161" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_manage_search_24.xml" value="0.3675" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.3675" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/input_search.xml" value="0.2255" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/tranpa.xml" value="0.161" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_home.xml" value="0.4" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_pick.xml" value="0.4" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/activity_search.xml" value="0.4" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/fragment_home.xml" value="0.1778115501519757" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/fragment_search.xml" value="0.4" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_book.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_list_filter.xml" value="0.4" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_pick.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_recenty.xml" value="0.14722222222222223" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/menu/bottom_menu.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

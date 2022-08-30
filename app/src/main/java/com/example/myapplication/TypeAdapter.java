@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
+
+
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.Type;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,10 +47,20 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
         if (Type ==null){
             return;
         }
-
         holder.TypeBook.setText(Type.getName());
         Picasso.get().load(Type.getImage()).into(holder.ImgType);
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Singleton.getInstance().ListFilter.clear();
+                for (Book book: Singleton.getInstance().ListBook){
+                   if (book.getType().equals(Type.getName()) ){
+                    Singleton.getInstance().ListFilter.add(book);
+                   }
+               }
+                view.getContext().startActivity(new Intent(view.getContext(),PickActivity.class));
+            }
+        });
 
     }
 
