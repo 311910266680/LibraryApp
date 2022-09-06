@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +46,7 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
             return;
         }
         Picasso.get().load(Filter.getImage()).into(holder.Image);
-
+        holder.titlebook.setText(Filter.getTitle());
     }
 
 
@@ -62,12 +63,12 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
 
 
         private ImageView Image;
-
+        private TextView titlebook;
         public FilterViewHolder(@NonNull View itemView) {
             super(itemView);
 
             Image = itemView.findViewById(R.id.imgfilter);
-
+            titlebook = itemView.findViewById(R.id.Titlebook);
         }
     }
 }

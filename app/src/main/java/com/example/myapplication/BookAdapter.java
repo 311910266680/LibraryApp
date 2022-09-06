@@ -41,6 +41,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             return;
         }
         Picasso.get().load(Book.getImage()).into(holder.Image);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Singleton.getInstance().getDetail(view.getContext(),Book);
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.example.myapplication.Model.Book;
 
 import java.util.ArrayList;
@@ -19,5 +22,12 @@ public class Singleton {
             instance = new Singleton();
         }
         return instance;
+    }
+    public void getDetail(Context context, Book book ){
+        Intent intent = new Intent(context, DetailBookActivity.class);
+        intent.putExtra("title",book.getTitle());
+        intent.putExtra("img",book.getImage());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }
