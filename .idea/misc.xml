@@ -3,21 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_detailbook.xml" value="0.536" />
-        <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_home.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_pick.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_home.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_list_filter.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.3675" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_detailbook.xml" value="0.264" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_book.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_list_filter.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_pick.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/tien ha/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_recenty.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryAPP/app/src/main/res/layout/activity_home.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable-anydpi/ic_edit.xml" value="0.207" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable-v24/round_button.xml" value="0.207" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_detailbook.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_home.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_pick.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_search.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow_bottomsheet.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_book.xml" value="0.18110435663627153" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_book_borrow.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_list_filter.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_pick.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_recenty.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/menu/bottom_menu.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/custom_input_search.xml" value="0.161" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/gradient.xml" value="0.161" />
         <entry key="..\:/Users/tien ha/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.161" />

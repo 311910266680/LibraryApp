@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Book;
 
+import com.example.myapplication.databinding.ItemListFilterBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,8 +46,15 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
         if (Filter ==null){
             return;
         }
-        Picasso.get().load(Filter.getImage()).into(holder.Image);
-        holder.titlebook.setText(Filter.getTitle());
+        Picasso.get().load(Filter.getImage()).into(holder.binding.imgfilter);
+        holder.binding.Titlebook.setText(Filter.getTitle());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Singleton.getInstance().getDetail(mContext,Filter);
+            }
+        });
+
     }
 
 
@@ -61,14 +69,15 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
     public class FilterViewHolder extends RecyclerView.ViewHolder{
 
 
-
-        private ImageView Image;
-        private TextView titlebook;
+        private ItemListFilterBinding binding;
+//        private ImageView Image;
+//        private TextView titlebook;
         public FilterViewHolder(@NonNull View itemView) {
             super(itemView);
+//            Image = itemView.findViewById(R.id.imgfilter);
+//            titlebook = itemView.findViewById(R.id.Titlebook);
 
-            Image = itemView.findViewById(R.id.imgfilter);
-            titlebook = itemView.findViewById(R.id.Titlebook);
+            binding = ItemListFilterBinding.bind(itemView);
         }
     }
 }

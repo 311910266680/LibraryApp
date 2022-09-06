@@ -23,8 +23,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         this.mContext = mContext;
     }
 
-
-
     @NonNull
     @Override
 
