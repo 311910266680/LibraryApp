@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -87,6 +88,6 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     public void ClickQuantityBorrow(int quantity) {
         Date currentday = Calendar.getInstance().getTime();
         Singleton.getListBookBorrow().add(new BorrowBook(img,title,quantity,String.valueOf(currentday),String.valueOf(currentday),price * quantity));
-        Log.e("HAHA",String.valueOf(Singleton.getListBookBorrow().size()));
+        Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
 }

@@ -40,6 +40,8 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
         holder.binding.expirationdate.setText(listbookborrow.get(position).getExpirationdate());
         holder.binding.price.setText(String.valueOf(listbookborrow.get(position).getPrice()));
 
+
+
     }
 
     @Override
