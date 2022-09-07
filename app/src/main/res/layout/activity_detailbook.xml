@@ -104,7 +104,9 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,19 +147,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
-                android:text="TextView"
+                android:text="Tran Van Truong"
                 android:textColor="#AAA8A8"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/tvprice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
-                android:text="TextView"
+                android:text="25$"
                 android:textColor="#AAA8A8"
                 android:textSize="12sp" />
+
         </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -180,7 +185,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton2"
+        android:id="@+id/btnborrow"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
@@ -198,5 +203,17 @@
         app:layout_constraintStart_toEndOf="@+id/cardView2">
 
     </com.google.android.material.button.MaterialButton>
+
+    <ImageButton
+        android:id="@+id/btnheart"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@drawable/img_heart_red"
+        app:layout_constraintBottom_toBottomOf="@+id/btnborrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnborrow"
+        app:layout_constraintTop_toTopOf="@+id/btnborrow">
+    </ImageButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
