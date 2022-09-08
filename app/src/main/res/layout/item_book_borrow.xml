@@ -122,7 +122,20 @@
             android:textSize="10dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/img"
-            app:layout_constraintTop_toBottomOf="@+id/textView22"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/textView22">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvdas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="DURATION:"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@+id/textView25"></TextView>
 
         <TextView
             android:id="@+id/price"
@@ -133,15 +146,30 @@
             android:textSize="10dp"
             android:layout_marginLeft="5dp"
             app:layout_constraintStart_toEndOf="@+id/textView25"
-            app:layout_constraintTop_toBottomOf="@+id/expirationdate"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/expirationdate">
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/tvduration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:text="3 days"
+            android:textSize="10dp"
+            app:layout_constraintStart_toEndOf="@+id/tvdas"
+            app:layout_constraintTop_toBottomOf="@+id/price"></TextView>
 
         <ImageButton
+            android:id="@+id/icedit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent"></ImageButton>
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageButton>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

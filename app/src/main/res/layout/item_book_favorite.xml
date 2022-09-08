@@ -20,7 +20,7 @@
             android:id="@+id/cvfavorite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="#FAE7E7"
+            android:backgroundTint="#BED6E8"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintTop_toTopOf="parent"
