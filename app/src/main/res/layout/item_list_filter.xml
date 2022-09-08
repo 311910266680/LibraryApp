@@ -39,7 +39,7 @@
                     android:layout_marginStart="110dp"
                     android:orientation="vertical"
                     android:padding="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView15"
+                    app:layout_constraintEnd_toStartOf="@+id/btnborrowfilter"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 

@@ -1,5 +1,5 @@
 package com.example.myapplication.Borrow;
 
 public interface CLickQuantity {
-    void ClickQuantityBorrow(int quantity);
+    void ClickQuantityBorrow(int quantity, String date);
 }

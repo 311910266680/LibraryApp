@@ -1,9 +1,18 @@
 package com.example.myapplication.Model;
 
 public class Book {
+    private int id;
     private String image,title,type;
     private int price;
     public Book() {
+    }
+
+    public Book(int id, String image, String title, String type, int price) {
+        this.id = id;
+        this.image = image;
+        this.title = title;
+        this.type = type;
+        this.price = price;
     }
 
     public String getType() {
@@ -36,5 +45,13 @@ public class Book {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
