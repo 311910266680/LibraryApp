@@ -1,15 +1,19 @@
 package com.example.myapplication.Borrow;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.databinding.FragmentBorrowBottomsheetBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.Calendar;
 
 public class BorrowBottomsheet extends BottomSheetDialogFragment {
 
@@ -48,7 +52,8 @@ public class BorrowBottomsheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 int n = Integer.parseInt(binding.btnquantity.getText().toString());
-                mclickquantity.ClickQuantityBorrow(n);
+                String s = binding.tvdate.getText().toString();
+                mclickquantity.ClickQuantityBorrow(n,s);
                 dismiss();
             }
         });
@@ -62,6 +67,26 @@ public class BorrowBottomsheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
+            }
+        });
+        binding.pickdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                binding.tvdate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            }
+                        },
+                        year, month, day);
+                datePickerDialog.show();
             }
         });
 

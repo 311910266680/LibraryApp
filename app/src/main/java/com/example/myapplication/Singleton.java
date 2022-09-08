@@ -12,6 +12,7 @@ import java.util.List;
 public class Singleton {
     private static Singleton instance;
     private static List<BorrowBook> listBookBorrow;
+    private static List<Book> listbookfavorite;
 
     public  List<Book> ListBook, ListFilter;
     public Singleton(){
@@ -31,6 +32,8 @@ public class Singleton {
     }
     public void getDetail(Context context, Book book ){
         Intent intent = new Intent(context, DetailBookActivity.class);
+        intent.putExtra("id",book.getId());
+        intent.putExtra("type",book.getType());
         intent.putExtra("title",book.getTitle());
         intent.putExtra("img",book.getImage());
         intent.putExtra("price",book.getPrice());
@@ -43,6 +46,12 @@ public class Singleton {
             listBookBorrow = new ArrayList<>();
         }
         return  listBookBorrow;
+    }
+    public static List<Book> getListbookfavorite(){
+        if(listbookfavorite == null){
+            listbookfavorite = new ArrayList<>();
+        }
+        return  listbookfavorite;
     }
 
 }

@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.myapplication.Borrow.BorrowBottomsheet;
 import com.example.myapplication.Borrow.BorrowFrag;
 import com.example.myapplication.Borrow.CLickQuantity;
+import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.databinding.ActivityDetailbookBinding;
 import com.squareup.picasso.Picasso;
@@ -29,11 +30,11 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
 
 
     private ActivityDetailbookBinding binding;
-    int a;
+    int a = 1;
 
 
-    private String img, title;
-    private int price;
+    private String img, title, type;
+    private int id,price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,13 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         setContentView(binding.getRoot());
 
         Intent get = getIntent();
+
         img = get.getStringExtra("img");
+        type = get.getStringExtra("type");
         title = get.getStringExtra("title");
         price = get.getIntExtra("price",1);
+        id = get.getIntExtra("id",1);
+
         binding.titleDetail.setText(title);
         binding.tvprice.setText(String.valueOf(price));
         Picasso.get().load(img).into(binding.imageDetail);
@@ -71,10 +76,12 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
                 switch (a){
                     case 1:
                         binding.btnheart.setBackgroundResource(R.drawable.img_heart_red);
+                        addtolistfavorite();
                         a = 0;
                         break;
                     case 0 :
                         binding.btnheart.setBackgroundResource(R.drawable.ic_heartwhite);
+                        removefavorite();
                         a = 1;
                         break;
                 }
@@ -85,9 +92,35 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     }
 
     @Override
-    public void ClickQuantityBorrow(int quantity) {
+    public void ClickQuantityBorrow(int quantity, String date) {
         Date currentday = Calendar.getInstance().getTime();
-        Singleton.getListBookBorrow().add(new BorrowBook(img,title,quantity,String.valueOf(currentday),String.valueOf(currentday),price * quantity));
+        Singleton.getListBookBorrow().add(new BorrowBook(img,title,quantity,String.valueOf(currentday),date,price * quantity));
         Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
+    }
+    public void addtolistfavorite(){
+        Book book = new Book(id,img,title,type,price);
+
+        if(Singleton.getListbookfavorite().size() == 0){
+            Singleton.getListbookfavorite().add(book);
+            Toast.makeText(getApplicationContext(),"Add sucessfull"+book.getTitle(),Toast.LENGTH_LONG).show();
+        }
+        else {
+            for(int i = 0; i< Singleton.getListbookfavorite().size(); i++){
+                if(Singleton.getListbookfavorite().get(i).getId() == book.getId()){
+                    Singleton.getListbookfavorite().remove(Singleton.getListbookfavorite().get(i));
+                }
+            }
+            Singleton.getListbookfavorite().add(book);
+            Toast.makeText(getApplicationContext(),"Add sucessfull"+book.getTitle(),Toast.LENGTH_LONG).show();
+        }
+
+    }
+    public void removefavorite(){
+        for(int i = 0; i< Singleton.getListbookfavorite().size(); i++){
+            if(Singleton.getListbookfavorite().get(i).getId() == id){
+                Singleton.getListbookfavorite().remove(Singleton.getListbookfavorite().get(i));
+            }
+        }
+        Toast.makeText(getApplicationContext(),"Remove sucessfull"+title,Toast.LENGTH_LONG).show();
     }
 }

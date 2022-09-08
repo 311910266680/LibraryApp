@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.myapplication.Borrow.BorrowFrag;
+import com.example.myapplication.Favorite.FavoriteFrag;
 import com.example.myapplication.Fragment.HomeFrag;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.Type;
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.borrow:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,new BorrowFrag()).commit();
+                        return true;
+                    case R.id.fvr:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame,new FavoriteFrag()).commit();
                         return true;
                 }
                 return false;

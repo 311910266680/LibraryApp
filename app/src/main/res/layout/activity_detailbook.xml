@@ -209,7 +209,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:background="@drawable/img_heart_red"
+        android:background="@drawable/ic_heartwhite"
         app:layout_constraintBottom_toBottomOf="@+id/btnborrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnborrow"
