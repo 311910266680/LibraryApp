@@ -8,14 +8,21 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable-v24/round_button.xml" value="0.207" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable-xhdpi/background_edittext.xml" value="0.207" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable-xhdpi/dialog_background.xml" value="0.207" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable/ic_account.xml" value="0.3285" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable/ic_camera.xml" value="0.3285" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable/ic_help.xml" value="0.3285" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable/ic_notifycation.xml" value="0.3285" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_detailbook.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_home.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_pick.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_picture_activityy.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_register.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_search.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_account.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_account_activpic.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_account_bottomsheet.xml" value="0.37135416666666665" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow_bottomsheet.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow_dialog.xml" value="0.16666666666666666" />

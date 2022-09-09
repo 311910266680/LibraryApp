@@ -18,7 +18,7 @@ public class PickActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick);
-        getSupportActionBar().hide();
+
         rcvFilter = findViewById(R.id.recFilter);
         back = findViewById(R.id.back);
         mFilterAdapter = new FilterAdapter(Singleton.getInstance().ListFilter, getApplicationContext());

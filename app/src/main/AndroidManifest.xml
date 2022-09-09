@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
 
     <application
@@ -25,6 +27,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".Account.PictureActivityy"
+            android:exported="false" />
+        <activity
             android:name=".Login.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -38,11 +43,10 @@
             android:name=".NotificationService"
             android:exported="false">
             <intent-filter>
-                <action
-                    android:name="com.google.firebase.MESSAGING_EVENT">
-                </action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
             </intent-filter>
         </service>
+
         <activity android:name=".PickActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".DetailBookActivity" />
