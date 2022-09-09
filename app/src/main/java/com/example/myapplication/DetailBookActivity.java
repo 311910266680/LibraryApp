@@ -44,7 +44,6 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
 
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
 
