@@ -2,10 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,19 +16,12 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
-    private ImageView imgD;
-    private TextView titleD;
-    private  ImageView back2;
-
 
     private ActivityDetailbookBinding binding;
     int a = 1;
@@ -50,13 +40,20 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         setContentView(binding.getRoot());
 
         Intent get = getIntent();
-
-        img = get.getStringExtra("img");
-        type = get.getStringExtra("type");
-        title = get.getStringExtra("title");
-        price = get.getIntExtra("price",1);
+//
+//        img = get.getStringExtra("img");
+//        type = get.getStringExtra("type");
+//        title = get.getStringExtra("title");
+//        price = get.getIntExtra("price",1);
         id = get.getIntExtra("id",1);
-
+        for(Book book:  Singleton.getInstance().ListBook){
+            if (book.getId()==id){
+                title=book.getTitle();
+                price=book.getPrice();
+                img=book.getImage();
+                type=book.getType();
+            }
+        }
         binding.titleDetail.setText(title);
         binding.tvprice.setText(String.valueOf(price));
         Picasso.get().load(img).into(binding.imageDetail);
@@ -92,7 +89,6 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
 
             }
         });
-
     }
 
     @Override
