@@ -48,6 +48,12 @@ public class RegisterActivity extends AppCompatActivity {
                 register();
             }
         });
+        binding.btback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         setContentView(binding.getRoot());
     }

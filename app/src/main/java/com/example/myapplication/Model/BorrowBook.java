@@ -2,42 +2,35 @@ package com.example.myapplication.Model;
 
 public class BorrowBook {
     private int id;
-    private String img;
-    private String title;
+    private String bookid;
+    private Book book;
+
+//    private String img;
+//    private String title;
     private int count;
     private String datestart;
     private String expirationdate;
-    private int price;
+//    private int price;
+    private int pricetotal;
     private long duration;
 
     public BorrowBook() {
     }
 
-    public BorrowBook(int id,String img, String title, int count, String datestart, String expirationdate, int price,long duration) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.img = img;
-        this.title = title;
-        this.count = count;
-        this.datestart = datestart;
-        this.expirationdate = expirationdate;
-        this.price = price;
-        this.duration = duration;
     }
 
-    public String getImg() {
-        return img;
+    public String getBookid() {
+        return bookid;
     }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBookid(String bookid) {
+        this.bookid = bookid;
     }
 
     public int getCount() {
@@ -64,20 +57,12 @@ public class BorrowBook {
         this.expirationdate = expirationdate;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPricetotal() {
+        return pricetotal;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setPricetotal(int pricetotal) {
+        this.pricetotal = pricetotal;
     }
 
     public long getDuration() {
@@ -86,5 +71,13 @@ public class BorrowBook {
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

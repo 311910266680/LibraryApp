@@ -8,13 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Borrow.BorrowBottomsheet;
 import com.example.myapplication.Borrow.CLickQuantity;
+import com.example.myapplication.Login.RegisterActivity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
+import com.example.myapplication.Model.Discount;
 import com.example.myapplication.databinding.ActivityDetailbookBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -22,8 +33,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +45,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     private ImageView imgD;
     private TextView titleD;
     private  ImageView back2;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
 
 
     private ActivityDetailbookBinding binding;
@@ -38,7 +54,7 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
 
 
     private String img, title, type;
-    private int id,price;
+    private int id,price, duration, pricetotal;
     private long dateeee,dayys;
 
     @Override
@@ -46,6 +62,10 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         super.onCreate(savedInstanceState);
 
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
+
+        mAuth = FirebaseAuth.getInstance();
+
+
 
         setContentView(binding.getRoot());
 
@@ -57,9 +77,12 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         price = get.getIntExtra("price",1);
         id = get.getIntExtra("id",1);
 
+
         binding.titleDetail.setText(title);
         binding.tvprice.setText(String.valueOf(price));
         Picasso.get().load(img).into(binding.imageDetail);
+
+
         binding.back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,12 +131,40 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
             dateeee = Math.abs(date2.getTime() - date1.getTime());
             dayys = TimeUnit.DAYS.convert(dateeee, TimeUnit.MILLISECONDS);
 
+            if(dayys == 0.0f){
+                dayys = 1;
+            }
+            duration = Math.toIntExact(dayys);
+            pricetotal = price * quantity * duration;
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        Singleton.getListBookBorrow().add(new BorrowBook(Singleton.getListBookBorrow().size() + 1,img,title,quantity,current,date,price * quantity,dayys));
-        Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
+//        add vao firebase idddddd
+        String uid = mAuth.getCurrentUser().getUid();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("bookid",id);
+        hashMap.put("count",quantity);
+        hashMap.put("datestart",current);
+        hashMap.put("expirationdate",date);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference.child(uid).child("bookborrow").child(String.valueOf(id)).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(DetailBookActivity.this,"add sucessfull", Toast.LENGTH_LONG).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(DetailBookActivity.this,"add Fail !!!", Toast.LENGTH_LONG).show();
+            }
+        });
+//        Singleton.getListBookBorrow().add(new BorrowBook());
+//        Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
     public void addtolistfavorite(){
         Book book = new Book(id,img,title,type,price);
@@ -133,6 +184,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         }
 
     }
+
+
     public void removefavorite(){
         for(int i = 0; i< Singleton.getListbookfavorite().size(); i++){
             if(Singleton.getListbookfavorite().get(i).getId() == id){

@@ -6,17 +6,153 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Borrow.BorrowFrag">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvborrow"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvborrow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_book_borrow"></androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Subtotal: "
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/subtotal"
+        app:layout_constraintTop_toBottomOf="@+id/btnapply">
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Discount:"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/discount"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+    </TextView>
+
+    <TextView
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtotal">
+    </TextView>
+
+    <TextView
+        android:id="@+id/subtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="0.00 VND"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnapply">
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="10dp"
+        android:drawableRight="@drawable/ic_discount"
+        android:padding="5dp"
+        android:text="Enter code discount "
+        app:layout_constraintEnd_toStartOf="@+id/edtdiscount"
+        app:layout_constraintTop_toBottomOf="@+id/rcvborrow">
+    </TextView>
+
+    <EditText
+        android:id="@+id/edtdiscount"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:hint="KM10"
+        android:paddingLeft="5dp"
+        android:textSize="10dp"
+        android:background="@drawable/custom_iput_discount"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnapply"
+        app:layout_constraintTop_toBottomOf="@+id/rcvborrow">
+    </EditText>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnapply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:layout_marginRight="10dp"
+        android:text="Apply"
+        app:strokeWidth="1dp"
+        app:strokeColor="#0F6991"
+        android:textColor="#0F6991"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rcvborrow">
+    </com.google.android.material.button.MaterialButton>
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Total:"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/total"
+        app:layout_constraintTop_toBottomOf="@+id/textView28">
+    </TextView>
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="0.00 VND"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discount">
+    </TextView>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/white"
+        android:text="Order"
+        android:layout_marginRight="10dp"
+        android:textColor="#FF5722"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_book_borrow"
-        tools:itemCount="4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/textView29"
+        app:strokeColor="#FF5722"
+        app:strokeWidth="1dp">
+    </com.google.android.material.button.MaterialButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

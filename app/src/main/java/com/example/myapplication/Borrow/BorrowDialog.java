@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class BorrowDialog extends DialogFragment{
 
     private ClickUpdateBorrow mclickupdate;
-    int id;
+    int id, price, duration, pricetotal;
     long tmp1 , tmp2 ;
 
     @Override
@@ -56,6 +56,7 @@ public class BorrowDialog extends DialogFragment{
         id = getArguments().getInt("id");
         int n = getArguments().getInt("quantity");
         String datestart = getArguments().getString("datestart");
+        price = getArguments().getInt("price");
         String s = getArguments().getString("date");
         binding.btnquantity.setText(String.valueOf(n));
         binding.tvdate.setText(s);
@@ -123,6 +124,12 @@ public class BorrowDialog extends DialogFragment{
                     tmp1 = Math.abs(date2.getTime() - date1.getTime());
                     tmp2 = TimeUnit.DAYS.convert(tmp1, TimeUnit.MILLISECONDS);
 
+                    if(tmp2 == 0.0f){
+                        tmp2 = 1;
+                    }
+                    duration = Math.toIntExact(tmp2);
+                    pricetotal = price * quantity * duration;
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -135,6 +142,7 @@ public class BorrowDialog extends DialogFragment{
                         Singleton.getListBookBorrow().get(i).setCount(quantity);
                         Singleton.getListBookBorrow().get(i).setExpirationdate(date);
                         Singleton.getListBookBorrow().get(i).setDuration(tmp2);
+                        Singleton.getListBookBorrow().get(i).setPricetotal(pricetotal);
                     }
                 }
                 mclickupdate.clickupdateborrow(id);

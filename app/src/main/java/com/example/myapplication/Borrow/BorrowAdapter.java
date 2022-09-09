@@ -40,19 +40,25 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
-        Picasso.get().load(listbookborrow.get(position).getImg()).into(holder.binding.img);
-        holder.binding.title.setText(listbookborrow.get(position).getTitle());
+
+
+
+
+
+
+        Picasso.get().load(listbookborrow.get(position).getBook().getImage()).into(holder.binding.img);
+        holder.binding.title.setText(listbookborrow.get(position).getBook().getTitle());
         holder.binding.count.setText(String.valueOf(listbookborrow.get(position).getCount()));
         holder.binding.datestart.setText(listbookborrow.get(position).getDatestart());
         holder.binding.expirationdate.setText(listbookborrow.get(position).getExpirationdate());
-        holder.binding.price.setText(String.valueOf(listbookborrow.get(position).getPrice()));
+        holder.binding.pricetotal.setText(String.valueOf(listbookborrow.get(position).getPricetotal()));
         holder.binding.tvduration.setText(String.valueOf(listbookborrow.get(position).getDuration()));
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setMessage("Do you want to delete "+listbookborrow.get(position).getTitle()+ "?");
+                builder.setMessage("Do you want to delete "+listbookborrow.get(position).getBook().getTitle()+ "?");
                 builder.setTitle("Alert !");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -88,6 +94,9 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
 
     @Override
     public int getItemCount() {
+        if(listbookborrow == null){
+            return 0;
+        }
         return listbookborrow.size();
     }
 
