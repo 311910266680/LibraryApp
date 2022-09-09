@@ -90,15 +90,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
         }
-       else{ progressDialog.setMessage("Logging in...");
+        else{ progressDialog.setMessage("Logging in...");
             progressDialog.show();
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     progressDialog.dismiss();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                        finish();
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    finish();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

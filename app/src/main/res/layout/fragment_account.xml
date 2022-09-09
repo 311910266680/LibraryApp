@@ -3,16 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#FFFFFF"
     android:layout_height="match_parent"
     tools:context=".Account.AccountFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="match_parent"
+        android:id="@+id/circleImageView"
+        android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_margin="30dp"
+        android:src="@drawable/ic_baseline_account_circle_24"
+        app:civ_border_color="#FF5722"
+        app:civ_border_width="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     </de.hdodenhof.circleimageview.CircleImageView>
+
+    <ImageButton
+        android:id="@+id/icpicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:background="@drawable/ic_camera"
+        app:layout_constraintStart_toEndOf="@+id/circleImageView"
+        app:layout_constraintTop_toTopOf="parent">
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tvname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Tien Bip"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView"></TextView>
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/background_edittext"
+        android:drawableLeft="@drawable/ic_account"
+        android:padding="15dp"
+        android:text="   My Account"
+        app:layout_constraintTop_toBottomOf="@+id/tvname"
+        tools:layout_editor_absoluteX="10dp"></TextView>
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/background_edittext"
+        android:drawableLeft="@drawable/ic_notifycation"
+        android:padding="15dp"
+        android:text="   Notification"
+        app:layout_constraintTop_toBottomOf="@+id/textView23"
+        tools:layout_editor_absoluteX="16dp"></TextView>
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/background_edittext"
+        android:drawableLeft="@drawable/ic_help"
+        android:padding="15dp"
+        android:text="   My Account"
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
+        tools:layout_editor_absoluteX="41dp"></TextView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnlogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Logout"
+        android:backgroundTint="#03A9F4"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26">
+    </com.google.android.material.button.MaterialButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
