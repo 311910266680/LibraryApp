@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class HomeFrag extends Fragment {
     private List<Book> mListBook;
     private List<Type> ListType;
     private CardView search;
+    private FirebaseFunctions mFunctions;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class HomeFrag extends Fragment {
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvBook.setLayoutManager(hori);
 
+        mFunctions = FirebaseFunctions.getInstance();
+
         recPick.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recBorrowed.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recPick.setAdapter(mTypeAdapter);
@@ -65,6 +69,7 @@ public class HomeFrag extends Fragment {
         });
         getBook();
         getType();
+
         return view;
     }
     private void getBook() {
@@ -88,6 +93,7 @@ public class HomeFrag extends Fragment {
             }
         });
     }
+
     private void getType() {
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("type");
@@ -109,4 +115,5 @@ public class HomeFrag extends Fragment {
             }
         });
     }
+
 }

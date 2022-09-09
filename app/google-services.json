@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "430078945725",
-    "firebase_url": "https://library-8c8cf-default-rtdb.firebaseio.com",
-    "project_id": "library-8c8cf",
-    "storage_bucket": "library-8c8cf.appspot.com"
+    "project_number": "607915869242",
+    "firebase_url": "https://fir-project-tientruong-default-rtdb.firebaseio.com",
+    "project_id": "fir-project-tientruong",
+    "storage_bucket": "fir-project-tientruong.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:430078945725:android:34f47fb78a798828834ad4",
+        "mobilesdk_app_id": "1:607915869242:android:0993e11a19b1920431a103",
         "android_client_info": {
           "package_name": "com.example.myapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "430078945725-r54rd8cuj78mdmlpgke6upujc7tp8too.apps.googleusercontent.com",
+          "client_id": "607915869242-0477n7rovv5bflao2s8n1798rdv452gc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "822f99312e95d42e29e932ae015f0942fc896027"
+          }
+        },
+        {
+          "client_id": "607915869242-pbik0binvh3gqrods046knlhbajhk9qr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB4Z8aceeODr_gKx3OAo70C2MxppUiykBE"
+          "current_key": "AIzaSyB9kvewflOYkJMfwr9uBOUhZhtBvEReOVI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "430078945725-r54rd8cuj78mdmlpgke6upujc7tp8too.apps.googleusercontent.com",
+              "client_id": "607915869242-pbik0binvh3gqrods046knlhbajhk9qr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
