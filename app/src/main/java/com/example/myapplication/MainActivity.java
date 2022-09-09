@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 import java.util.List;
@@ -40,13 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this,new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getToken();
-                Log.e("TAG", "onSuccess: "+newToken );
-            }
-        });
+        FirebaseMessaging.getInstance().subscribeToTopic("newNoti");
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,new HomeFrag()).commit();
 

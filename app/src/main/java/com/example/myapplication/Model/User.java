@@ -1,9 +1,9 @@
 package com.example.myapplication.Model;
 
 public class User {
-    private String name, age, email;
+    public String name, age, email;
 
-    public User() {
+    public User(String name, String age, String email) {
     }
 
     public String getName() {
