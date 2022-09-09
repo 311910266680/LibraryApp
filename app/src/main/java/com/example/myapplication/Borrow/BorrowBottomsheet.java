@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import com.example.myapplication.databinding.FragmentBorrowBottomsheetBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class BorrowBottomsheet extends BottomSheetDialogFragment {
 
@@ -27,6 +29,12 @@ public class BorrowBottomsheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         binding = FragmentBorrowBottomsheetBinding.inflate(inflater,container,false);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        String current = df.format(calendar.getTime());
+
+        binding.tvdate.setText(current);
         binding.btnminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +90,7 @@ public class BorrowBottomsheet extends BottomSheetDialogFragment {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                binding.tvdate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                binding.tvdate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         },
                         year, month, day);

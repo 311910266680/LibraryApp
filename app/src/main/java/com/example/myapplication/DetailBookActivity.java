@@ -9,19 +9,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.myapplication.Borrow.BorrowBottomsheet;
-import com.example.myapplication.Borrow.BorrowFrag;
 import com.example.myapplication.Borrow.CLickQuantity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.databinding.ActivityDetailbookBinding;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
     private ImageView imgD;
@@ -35,11 +39,11 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
 
     private String img, title, type;
     private int id,price;
+    private long dateeee,dayys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
 
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
 
@@ -93,8 +97,22 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
 
     @Override
     public void ClickQuantityBorrow(int quantity, String date) {
-        Date currentday = Calendar.getInstance().getTime();
-        Singleton.getListBookBorrow().add(new BorrowBook(img,title,quantity,String.valueOf(currentday),date,price * quantity));
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        String current = df.format(calendar.getTime());
+
+        try {
+            Date date1 = df.parse(current);
+            Date date2 = df.parse(date);
+            dateeee = Math.abs(date2.getTime() - date1.getTime());
+            dayys = TimeUnit.DAYS.convert(dateeee, TimeUnit.MILLISECONDS);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Singleton.getListBookBorrow().add(new BorrowBook(Singleton.getListBookBorrow().size() + 1,img,title,quantity,current,date,price * quantity,dayys));
         Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
     public void addtolistfavorite(){

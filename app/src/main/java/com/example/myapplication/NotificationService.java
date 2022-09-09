@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -36,9 +35,9 @@ public class NotificationService extends FirebaseMessagingService {
                     NotificationManager.IMPORTANCE_DEFAULT);
 
             notificationChannel.setDescription("Techrush Channel");
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.BLUE);
-            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+//            notificationChannel.enableLights(true);
+//            notificationChannel.setLightColor(Color.BLUE);
+//            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
