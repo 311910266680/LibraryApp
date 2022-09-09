@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,12 +20,12 @@ import com.example.myapplication.R;
 import com.example.myapplication.SearchActivity;
 import com.example.myapplication.Singleton;
 import com.example.myapplication.TypeAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.functions.FirebaseFunctions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,15 @@ public class HomeFrag extends Fragment {
     private List<Book> mListBook;
     private List<Type> ListType;
     private CardView search;
-    private FirebaseFunctions mFunctions;
+    private TextView nameHome;
+    private FirebaseAuth firebaseAuth;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        nameHome= view.findViewById(R.id.nameHome);
         rcvBook = view.findViewById(R.id.rec1);
         recPick = view.findViewById(R.id.recsearch);
         recBorrowed = view.findViewById(R.id.rec3);
@@ -54,8 +58,7 @@ public class HomeFrag extends Fragment {
         rcvBook.setAdapter(mBookAdapter);
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvBook.setLayoutManager(hori);
-
-        mFunctions = FirebaseFunctions.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         recPick.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recBorrowed.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -69,6 +72,7 @@ public class HomeFrag extends Fragment {
         });
         getBook();
         getType();
+        loadUserInfo();
 
         return view;
     }
@@ -93,7 +97,6 @@ public class HomeFrag extends Fragment {
             }
         });
     }
-
     private void getType() {
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("type");
@@ -112,6 +115,20 @@ public class HomeFrag extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+    private void loadUserInfo() {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = ""+snapshot.child("name").getValue();
+                nameHome.setText("Hello "+name+"!");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
