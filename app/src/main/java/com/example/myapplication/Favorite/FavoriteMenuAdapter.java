@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.R;
-import com.example.myapplication.Singleton;
 import com.example.myapplication.databinding.ItemBookFavoriteMenuBinding;
 
 import java.util.ArrayList;
@@ -19,13 +18,14 @@ import java.util.List;
 
 public class FavoriteMenuAdapter extends RecyclerView.Adapter<FavoriteMenuAdapter.Viewholder> {
     private List<String> listmenu;
-    private List<Book> productListfilter;
+    private List<Book> productListfilter, listbook;
     private ClickMenu mclikcmenu;
 
     int selectedItem;
 
-    public FavoriteMenuAdapter(List<String> listmenu, ClickMenu clikcmenu) {
+    public FavoriteMenuAdapter(List<String> listmenu, ClickMenu clikcmenu, List<Book> listbook) {
         this.listmenu = listmenu;
+        this.listbook = listbook;
         this.mclikcmenu = clikcmenu;
         selectedItem = 0;
     }
@@ -58,12 +58,12 @@ public class FavoriteMenuAdapter extends RecyclerView.Adapter<FavoriteMenuAdapte
 
                 productListfilter = new ArrayList<>();
 
-                for(int i = 0; i< Singleton.getListbookfavorite().size(); i++){
-                    if(listmenu.get(position).toString().contains(Singleton.getListbookfavorite().get(i).getType())){
-                        productListfilter.add(Singleton.getListbookfavorite().get(i));
+                for(int i = 0; i< listbook.size(); i++){
+                    if(listmenu.get(position).toString().contains(listbook.get(i).getType())){
+                        productListfilter.add(listbook.get(i));
                     }
                     else if(listmenu.get(position).toString() == "All"){
-                        productListfilter.add(Singleton.getListbookfavorite().get(i));
+                        productListfilter.add(listbook.get(i));
                     }
                     mclikcmenu.ClickChooseMenu(productListfilter);
                 }
@@ -74,6 +74,9 @@ public class FavoriteMenuAdapter extends RecyclerView.Adapter<FavoriteMenuAdapte
 
     @Override
     public int getItemCount() {
+        if(listmenu ==null){
+            return 0;
+        }
         return listmenu.size();
     }
 

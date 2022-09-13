@@ -26,7 +26,7 @@
         android:drawablePadding="10dp"
         android:hint="Search by Book title, Author, etc"
         android:padding="10dp"
-        android:textColor="#B5B5B5"
+        android:textColor="#DAD7D7"
         android:textColorHint="#8F8A8A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pre"

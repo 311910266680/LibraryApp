@@ -57,8 +57,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     public class BookViewHolder extends RecyclerView.ViewHolder{
 
-
-
         private ImageView Image;
 
         public BookViewHolder(@NonNull View itemView) {

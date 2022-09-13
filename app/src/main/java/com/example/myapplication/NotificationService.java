@@ -28,8 +28,7 @@ public class NotificationService extends FirebaseMessagingService {
     public void shownotification(RemoteMessage.Notification message){
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "com.****.*****.***"; //your app package name
-
+        String NOTIFICATION_CHANNEL_ID = "com.****.*****.***";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Notification",
                     NotificationManager.IMPORTANCE_DEFAULT);
