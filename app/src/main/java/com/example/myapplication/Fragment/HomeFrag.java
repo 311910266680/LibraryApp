@@ -2,7 +2,6 @@ package com.example.myapplication.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Home.BookAdapter;
+import com.example.myapplication.Home.SearchActivity;
+import com.example.myapplication.Home.TypeAdapter;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.Type;
 import com.example.myapplication.R;
-import com.example.myapplication.Home.SearchActivity;
 import com.example.myapplication.Singleton;
-import com.example.myapplication.Home.TypeAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,8 +82,6 @@ public class HomeFrag extends Fragment {
     private void getBook() {
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("book");
-        Log.e("cxxxx", "getBook: "+myRef );
-        Log.e("ddd", "getBook: "+database );Log.e("cx", "getBook: "+mListBook );
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

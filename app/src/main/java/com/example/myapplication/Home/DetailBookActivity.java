@@ -3,12 +3,12 @@ package com.example.myapplication.Home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.Borrow.BorrowBottomsheet;
 import com.example.myapplication.Borrow.CLickQuantity;
@@ -40,21 +40,29 @@ import java.util.concurrent.TimeUnit;
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
     private FirebaseAuth firebaseAuth;
     private ActivityDetailbookBinding binding;
-    private List<Book> mListBook;
+    private List<Book> mListBook,listSimilar;
     private String img, title, type;
     private int id,price;
     private long dateeee,dayys;
     boolean isInMyFavorite = false;
+    private BookAdapter adapterSimilar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getBook();
+        mListBook = new ArrayList<>();
+        listSimilar= new ArrayList<>();
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseAuth = FirebaseAuth.getInstance();
         Intent get = getIntent();
 
-        mListBook = new ArrayList<>();
+        adapterSimilar = new BookAdapter(listSimilar,getApplicationContext());
+
+        binding.similar.setAdapter(adapterSimilar);
+        binding.similar.setLayoutManager((new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false)));
+
         id = get.getIntExtra("id",1);
 
         binding.back2.setOnClickListener(new View.OnClickListener() {
@@ -189,8 +197,14 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
                 binding.titleDetail.setText(title);
                 binding.tvprice.setText(String.valueOf(price));
                 Picasso.get().load(img).into(binding.imageDetail);
-
-                Log.e("TAG", "onDataChange: "+mListBook );
+                for(Book book:  mListBook){
+                    if (book.getType().contains(type)){
+                        listSimilar.add(book);
+                        if (book.getId()==id)
+                        listSimilar.remove(book);
+                    }
+                    adapterSimilar.notifyDataSetChanged();
+                }
             }
 
             @Override
