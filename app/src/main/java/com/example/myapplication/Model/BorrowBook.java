@@ -1,12 +1,11 @@
 package com.example.myapplication.Model;
 
 public class BorrowBook {
-    private int id;
-    private String bookid;
-    private Book book;
-
+    private String idbookborrow;
+    private int bookid;
 //    private String img;
 //    private String title;
+    private Book book;
     private int count;
     private String datestart;
     private String expirationdate;
@@ -14,23 +13,38 @@ public class BorrowBook {
     private int pricetotal;
     private long duration;
 
+    public BorrowBook(String idbookborrow, int bookid, Book book, int count, String datestart, String expirationdate, int pricetotal, long duration) {
+        this.idbookborrow = idbookborrow;
+        this.book = book;
+        this.bookid = bookid;
+        this.count = count;
+        this.datestart = datestart;
+        this.expirationdate = expirationdate;
+        this.pricetotal = pricetotal;
+        this.duration = duration;
+    }
+
+    //    public BorrowBook(int id, String img, String title, int count, String datestart, String expirationdate, int price, int pricetotal, long duration) {
+//        this.id = id;
+//        this.img = img;
+//        this.title = title;
+//        this.count = count;
+//        this.datestart = datestart;
+//        this.expirationdate = expirationdate;
+//        this.price = price;
+//        this.pricetotal = pricetotal;
+//        this.duration = duration;
+//    }
+
     public BorrowBook() {
     }
 
-    public int getId() {
-        return id;
+    public String getIdbookborrow() {
+        return idbookborrow;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBookid() {
-        return bookid;
-    }
-
-    public void setBookid(String bookid) {
-        this.bookid = bookid;
+    public void setIdbookborrow(String idbookborrow) {
+        this.idbookborrow = idbookborrow;
     }
 
     public int getCount() {
@@ -61,6 +75,46 @@ public class BorrowBook {
         return pricetotal;
     }
 
+    public int getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(int bookid) {
+        this.bookid = bookid;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    //    public String getImg() {
+//        return img;
+//    }
+//
+//    public void setImg(String img) {
+//        this.img = img;
+//    }
+//
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public int getPrice() {
+//        return price;
+//    }
+//
+//    public void setPrice(int price) {
+//        this.price = price;
+//    }
+
     public void setPricetotal(int pricetotal) {
         this.pricetotal = pricetotal;
     }
@@ -71,13 +125,5 @@ public class BorrowBook {
 
     public void setDuration(long duration) {
         this.duration = duration;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 }

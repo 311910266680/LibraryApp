@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
@@ -40,7 +41,7 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     private ActivityDetailbookBinding binding;
     private List<Book> mListBook;
     private String img, title, type;
-    private int id,price;
+    private int id,price, dayconvert;
     private long dateeee,dayys;
     boolean isInMyFavorite = false;
     @Override
@@ -98,13 +99,46 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
             dateeee = Math.abs(date2.getTime() - date1.getTime());
             dayys = TimeUnit.DAYS.convert(dateeee, TimeUnit.MILLISECONDS);
 
+            dayconvert = Math.toIntExact(dayys);
+            if(dayconvert == 0){
+                dayconvert = 1;
+            }
+
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        String uid = firebaseAuth.getUid();
+        String idborrowbook = "T"+id;
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("idbookborrow",idborrowbook);
+        hashMap.put("bookid",id);
+        hashMap.put("count",quantity);
+        hashMap.put("datestart",current);
+        hashMap.put("expirationdate",date);
+        hashMap.put("pricetotal",price * quantity * dayconvert);
+        hashMap.put("duration", dayconvert);
 
-        Singleton.getListBookBorrow().add(new BorrowBook(Singleton.getListBookBorrow().size() + 1,img,title,quantity,current,date,price * quantity,dayys));
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(uid).child("borrowbook").child(idborrowbook).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getApplicationContext(), "Add to your favorite", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Failed to add your favorite"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+//
+//        Singleton.getListBookBorrow().add(new BorrowBook(Singleton.getListBookBorrow().size() + 1,img,title,quantity,current,date,price, price * quantity,dayys));
         Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
+
 
     public void checkIsFavorite(Context context, String bookId ){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");

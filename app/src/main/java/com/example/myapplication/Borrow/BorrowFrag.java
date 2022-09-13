@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
@@ -20,6 +21,8 @@ import com.example.myapplication.Model.Discount;
 import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
 import com.example.myapplication.databinding.FragmentBorrowBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowDialog, ClickUpdateBorrow{
+public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowDialog, ClickUpdateBorrow {
     private FragmentBorrowBinding binding;
     private BorrowAdapter adapter;
     private int subtotal, total;
@@ -42,27 +45,24 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     private float discount, discountdisp;
     private List<BorrowBook> borrowBookList;
     private FirebaseAuth mauth;
+
     private String k;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentBorrowBinding.inflate(inflater,container,false);
 
         mauth = FirebaseAuth.getInstance();
-
-        getlistborrow();
+        getListBorrow();
 
         adapter = new BorrowAdapter(borrowBookList,this,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         binding.rcvborrow.setLayoutManager(linearLayoutManager);
         binding.rcvborrow.setAdapter(adapter);
-        getpricetotal();
+
         discountslist = new ArrayList<>();
-
         getdiscount();
-
 
 
         binding.btnapply.setOnClickListener(new View.OnClickListener() {
@@ -90,15 +90,68 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         return binding.getRoot();
     }
 
-    @Override
-    public void ClickDialogdelete(BorrowBook book) {
-        for (int i = 0; i< Singleton.getListBookBorrow().size(); i++){
-            if(Singleton.getListBookBorrow().get(i).getId() == book.getId()){
-                Singleton.getListBookBorrow().remove(Singleton.getListBookBorrow().get(i));
+
+    public void getListBorrow(){
+        borrowBookList = new ArrayList<>();
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users");
+        myRef.child(mauth.getCurrentUser().getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                borrowBookList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    BorrowBook item = dataSnapshot.getValue(BorrowBook.class);
+                    borrowBookList.add(item);
+                }
+                addBookTolistBorrow(borrowBookList);
+                Log.e("SsS", String.valueOf(borrowBookList.size()));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        }) ;
+    }
+
+    public void addBookTolistBorrow(List<BorrowBook> listborrowbook){
+        Log.e("checkkkk",String.valueOf(Singleton.getListBook().size()));
+
+        for(int i = 0; i< Singleton.getListBook().size(); i++){
+            for(int j = 0; j<listborrowbook.size(); j++){
+                if(listborrowbook.get(j).getBookid() == Singleton.getListBook().get(i).getId()){
+                    Log.e("check2",String.valueOf(listborrowbook.get(j).getBookid()));
+                    listborrowbook.get(j).setBook(Singleton.getListBook().get(i));
+                }
             }
         }
+    }
+
+
+
+
+    @Override
+    public void ClickDialogdelete(BorrowBook book) {
+        deleteborrowbook(book.getIdbookborrow());
         adapter.notifyDataSetChanged();
 
+    }
+    private void deleteborrowbook(String id){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myf = firebaseDatabase.getReference("Users");
+        myf.child(mauth.getUid()).child("borrowbook").child(id).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getContext(),"Delete ok", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(),"Delete fail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getpricetotal(){
@@ -109,6 +162,8 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         binding.total.setText(String.valueOf(subtotal));
 
     }
+
+
     private void getdiscount() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("discountcode");
@@ -130,26 +185,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
             }
         });
     }
-    private void getlistborrow() {
-        String uid = mauth.getCurrentUser().getUid();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("Users");
-        myRef.child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                borrowBookList = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    BorrowBook borrowBook = dataSnapshot.getValue(BorrowBook.class);
-                    borrowBookList.add(borrowBook);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     private void removedot(float x){
         k = String.valueOf(x);
         String [] n  = k.split("\\.");
@@ -165,19 +201,21 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     @Override
     public void clickShowdialog(BorrowBook borrowBook) {
         Bundle bundle = new Bundle();
-        bundle.putInt("id",borrowBook.getId());
-        bundle.putInt("quantity",borrowBook.getCount());
-        bundle.putString("datestart",borrowBook.getDatestart());
+        bundle.putString("id",borrowBook.getIdbookborrow());
+        bundle.putInt("bookid",borrowBook.getBookid());
+        bundle.putInt("count",borrowBook.getCount());
         bundle.putInt("price",borrowBook.getBook().getPrice());
-        bundle.putString("date",borrowBook.getExpirationdate());
+        bundle.putInt("pricetotal",borrowBook.getPricetotal());
+        bundle.putString("datestart",borrowBook.getDatestart());
+        bundle.putString("expirationdate",borrowBook.getExpirationdate());
         BorrowDialog dialog = new BorrowDialog(this);
         dialog.setArguments(bundle);
 
         dialog.show(getParentFragmentManager(),"ok");
     }
+
     @Override
-    public void clickupdateborrow(int id) {
-        getpricetotal();
+    public void clickupdateborrow(String id) {
         adapter.notifyDataSetChanged();
     }
 }

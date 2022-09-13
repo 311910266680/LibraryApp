@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.myapplication.databinding.ActivityPictureActivityyBinding;
@@ -13,14 +14,17 @@ import com.example.myapplication.databinding.ActivityPictureActivityyBinding;
 public class PictureActivityy extends AppCompatActivity {
 
     private ActivityPictureActivityyBinding binding;
+    private String image;
+    private Uri myuri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPictureActivityyBinding.inflate(getLayoutInflater());
 
-        Uri myuri = Uri.parse(getIntent().getStringExtra("img"));
-
+        image = getIntent().getStringExtra("img");
+        Uri myuri = Uri.parse(image);
+        Log.e("HH", String.valueOf(myuri));
 
         binding.imgpic.setImageURI(myuri);
         binding.btupdate.setOnClickListener(new View.OnClickListener() {

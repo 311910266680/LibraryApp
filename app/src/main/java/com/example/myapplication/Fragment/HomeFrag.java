@@ -51,9 +51,13 @@ public class HomeFrag extends Fragment {
         recBorrowed = view.findViewById(R.id.rec3);
         search = view.findViewById(R.id.search);
         mListBook = new ArrayList<>();
+
+//      used sington !!!!!!!!!!!!!!!!
         Singleton.getInstance().ListBook = mListBook;
         ListType= new ArrayList<>();
-        mBookAdapter = new BookAdapter(mListBook,getContext());
+
+
+        mBookAdapter = new BookAdapter(Singleton.getListBook(),getContext());
         mTypeAdapter = new TypeAdapter(ListType,getContext());
         rcvBook.setAdapter(mBookAdapter);
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);

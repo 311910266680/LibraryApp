@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
 
-
         mAuth = FirebaseAuth.getInstance();
 
         binding.btnregister.setOnClickListener(new View.OnClickListener() {

@@ -41,11 +41,6 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
 
-
-
-
-
-
         Picasso.get().load(listbookborrow.get(position).getBook().getImage()).into(holder.binding.img);
         holder.binding.title.setText(listbookborrow.get(position).getBook().getTitle());
         holder.binding.count.setText(String.valueOf(listbookborrow.get(position).getCount()));

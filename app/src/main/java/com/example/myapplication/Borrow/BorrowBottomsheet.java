@@ -19,7 +19,8 @@ import java.util.TimeZone;
 
 public class BorrowBottomsheet extends BottomSheetDialogFragment {
 
-    CLickQuantity mclickquantity;
+    private CLickQuantity mclickquantity;
+
     public BorrowBottomsheet(CLickQuantity clickquantity) {
         this.mclickquantity = clickquantity;
     }
