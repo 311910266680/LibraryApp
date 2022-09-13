@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import com.example.myapplication.Borrow.BorrowBottomsheet;
 import com.example.myapplication.Borrow.CLickQuantity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
+import com.example.myapplication.R;
+import com.example.myapplication.Singleton;
 import com.example.myapplication.databinding.ActivityDetailbookBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

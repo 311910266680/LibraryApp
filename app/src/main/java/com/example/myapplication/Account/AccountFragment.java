@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -13,13 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.myapplication.Login.LoginActivity;
-import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentAccountBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
@@ -37,7 +36,6 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
     private FirebaseAuth mAuth;
     private FragmentAccountBinding binding;
     private FirebaseAuth firebaseAuth;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +46,12 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
 
         binding = FragmentAccountBinding.inflate(inflater,container,false);
         mAuth = FirebaseAuth.getInstance();
+        binding.profileDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),ProfileActivity.class) );
+            }
+        });
         binding.icpicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +85,12 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = ""+snapshot.child("name").getValue();
+                String profileImage = ""+snapshot.child("profileImage").getValue();
                 binding.tvname.setText(name);
+                if (!profileImage.isEmpty()){
+                    Picasso.get().load(profileImage).into(binding.circleImageView);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

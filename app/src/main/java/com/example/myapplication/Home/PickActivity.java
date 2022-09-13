@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Home;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.FilterAdapter;
+import com.example.myapplication.R;
+import com.example.myapplication.Singleton;
 
 
 public class PickActivity extends AppCompatActivity {

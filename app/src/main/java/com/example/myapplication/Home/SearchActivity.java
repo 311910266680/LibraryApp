@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Home;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.FilterAdapter;
 import com.example.myapplication.Model.Book;
+import com.example.myapplication.R;
+import com.example.myapplication.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;

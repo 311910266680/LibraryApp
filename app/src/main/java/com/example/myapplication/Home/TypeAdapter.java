@@ -1,10 +1,9 @@
-package com.example.myapplication;
+package com.example.myapplication.Home;
 
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.Type;
+import com.example.myapplication.R;
+import com.example.myapplication.Singleton;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,7 +58,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
                     Singleton.getInstance().ListFilter.add(book);
                    }
                }
-                view.getContext().startActivity(new Intent(view.getContext(),PickActivity.class));
+                view.getContext().startActivity(new Intent(view.getContext(), PickActivity.class));
             }
         });
 
