@@ -30,6 +30,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Viewho
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,12 +52,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Viewho
             @Override
             public void onClick(View v) {
                 mclickremovefavorite.clickremovefavorite(listbookfavorite.get(position));
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
+        if (listbookfavorite==null){
+            return 0;
+        }
         return listbookfavorite.size();
     }
 

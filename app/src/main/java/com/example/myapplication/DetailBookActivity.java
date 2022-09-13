@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Borrow.BorrowBottomsheet;
@@ -12,51 +15,46 @@ import com.example.myapplication.Borrow.CLickQuantity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.databinding.ActivityDetailbookBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
-
+    private FirebaseAuth firebaseAuth;
     private ActivityDetailbookBinding binding;
-    int a = 1;
-
-
+    private List<Book> mListBook;
     private String img, title, type;
     private int id,price;
     private long dateeee,dayys;
-
+    boolean isInMyFavorite = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getBook();
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
-
         setContentView(binding.getRoot());
-
+        firebaseAuth = FirebaseAuth.getInstance();
         Intent get = getIntent();
-//
-//        img = get.getStringExtra("img");
-//        type = get.getStringExtra("type");
-//        title = get.getStringExtra("title");
-//        price = get.getIntExtra("price",1);
+
+        mListBook = new ArrayList<>();
         id = get.getIntExtra("id",1);
-        for(Book book:  Singleton.getInstance().ListBook){
-            if (book.getId()==id){
-                title=book.getTitle();
-                price=book.getPrice();
-                img=book.getImage();
-                type=book.getType();
-            }
-        }
-        binding.titleDetail.setText(title);
-        binding.tvprice.setText(String.valueOf(price));
-        Picasso.get().load(img).into(binding.imageDetail);
+
         binding.back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,21 +72,17 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         binding.btnheart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (a){
-                    case 1:
-                        binding.btnheart.setBackgroundResource(R.drawable.img_heart_red);
-                        addtolistfavorite();
-                        a = 0;
-                        break;
-                    case 0 :
-                        binding.btnheart.setBackgroundResource(R.drawable.ic_heartwhite);
-                        removefavorite();
-                        a = 1;
-                        break;
+                if(isInMyFavorite){
+                    removeFromFavorite(getApplicationContext(),String.valueOf(id));
+                }
+                else {
+                    addToFavorite(getApplicationContext(),String.valueOf(id));
                 }
 
             }
         });
+        checkIsFavorite(this,String.valueOf(id));
+
     }
 
     @Override
@@ -111,30 +105,96 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         Singleton.getListBookBorrow().add(new BorrowBook(Singleton.getListBookBorrow().size() + 1,img,title,quantity,current,date,price * quantity,dayys));
         Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
-    public void addtolistfavorite(){
-        Book book = new Book(id,img,title,type,price);
 
-        if(Singleton.getListbookfavorite().size() == 0){
-            Singleton.getListbookfavorite().add(book);
-            Toast.makeText(getApplicationContext(),"Add sucessfull"+book.getTitle(),Toast.LENGTH_LONG).show();
-        }
-        else {
-            for(int i = 0; i< Singleton.getListbookfavorite().size(); i++){
-                if(Singleton.getListbookfavorite().get(i).getId() == book.getId()){
-                    Singleton.getListbookfavorite().remove(Singleton.getListbookfavorite().get(i));
-                }
-            }
-            Singleton.getListbookfavorite().add(book);
-            Toast.makeText(getApplicationContext(),"Add sucessfull"+book.getTitle(),Toast.LENGTH_LONG).show();
-        }
+    public void checkIsFavorite(Context context, String bookId ){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(firebaseAuth.getUid()).child("favorite").child(bookId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        isInMyFavorite = snapshot.exists();
+                        if(isInMyFavorite){
+                            binding.btnheart.setBackgroundResource(R.drawable.img_heart_red);
+                        }
+                        else{
+                            binding.btnheart.setBackgroundResource(R.drawable.ic_heartwhite);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    public void addToFavorite(Context context, String bookId  ){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        HashMap<String, Object> hashMap =new HashMap<>();
+        hashMap.put("bookId",""+bookId);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("favorite").child(bookId).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(context, "Add to your favorite", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Failed to add your favorite"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
-    public void removefavorite(){
-        for(int i = 0; i< Singleton.getListbookfavorite().size(); i++){
-            if(Singleton.getListbookfavorite().get(i).getId() == id){
-                Singleton.getListbookfavorite().remove(Singleton.getListbookfavorite().get(i));
+
+    public void removeFromFavorite(Context context, String bookId){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("favorite").child(bookId).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(context, "Remove from your favorite", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Failed to remove from your favorite"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    private void getBook() {
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("book");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mListBook.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Book book = dataSnapshot.getValue(Book.class);
+                    mListBook.add(book);
+                }
+                for(Book book:  mListBook){
+                    if (book.getId()==id){
+                        title=book.getTitle();
+                        price=book.getPrice();
+                        img=book.getImage();
+                        type=book.getType();
+                    }
+                }
+                binding.titleDetail.setText(title);
+                binding.tvprice.setText(String.valueOf(price));
+                Picasso.get().load(img).into(binding.imageDetail);
+
+                Log.e("TAG", "onDataChange: "+mListBook );
             }
-        }
-        Toast.makeText(getApplicationContext(),"Remove sucessfull"+title,Toast.LENGTH_LONG).show();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
