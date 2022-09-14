@@ -136,12 +136,12 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(getApplicationContext(), "Add to your favorite", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Add to your list Borrow", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Failed to add your favorite"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 //

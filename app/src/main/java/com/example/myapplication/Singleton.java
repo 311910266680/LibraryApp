@@ -92,4 +92,12 @@ public class Singleton {
                     }
                 }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        return listBookmain;
+    }
 }
