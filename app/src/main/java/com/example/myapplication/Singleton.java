@@ -14,7 +14,7 @@ public class Singleton {
     private static Singleton instance;
     private static List<BorrowBook> listBookBorrow;
     private static List<Book> listbookfavorite;
-
+    public String type;
     public  List<Book> ListBook, ListFilter;
     public Singleton(){
         if (ListBook==null|| ListFilter==null){

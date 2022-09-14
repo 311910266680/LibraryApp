@@ -50,7 +50,7 @@
         <activity android:name=".Home.PickActivity" />
         <activity android:name=".Home.SearchActivity" />
         <activity android:name=".Home.DetailBookActivity" />
-        <activity android:name=".Account.ProfileActivity" />
+        <activity android:name=".Account.NotificationsActivity" />
     </application>
 
 

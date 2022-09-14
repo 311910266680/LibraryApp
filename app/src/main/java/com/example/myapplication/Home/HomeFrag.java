@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Account.NotificationsActivity;
 import com.example.myapplication.Home.BookAdapter;
 import com.example.myapplication.Home.SearchActivity;
 import com.example.myapplication.Home.TypeAdapter;
@@ -32,32 +33,43 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeFrag extends Fragment {
     private BookAdapter mBookAdapter;
     private TypeAdapter mTypeAdapter;
     private RecyclerView rcvBook,recPick,recBorrowed;
-    private List<Book> mListBook;
+    private List<Book> mListBook,listvalid;
     private List<Type> ListType;
     private CardView search;
     private TextView nameHome;
     private FirebaseAuth firebaseAuth;
-    private ImageView imghome;
+    private CircleImageView imghome;
+    private ImageView notifi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        notifi = view.findViewById(R.id.notifi);
+        notifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), NotificationsActivity.class));
+            }
+        });
         nameHome= view.findViewById(R.id.nameHome);
         rcvBook = view.findViewById(R.id.rec1);
         recPick = view.findViewById(R.id.recsearch);
         recBorrowed = view.findViewById(R.id.rec3);
         search = view.findViewById(R.id.search);
         mListBook = new ArrayList<>();
-        Singleton.getInstance().ListBook = mListBook;
         ListType= new ArrayList<>();
+        listvalid= new ArrayList<>();
         mBookAdapter = new BookAdapter(mListBook,getContext());
         mTypeAdapter = new TypeAdapter(ListType,getContext());
+        Singleton.getInstance().ListBook = listvalid;
         rcvBook.setAdapter(mBookAdapter);
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvBook.setLayoutManager(hori);
@@ -73,10 +85,10 @@ public class HomeFrag extends Fragment {
                 getContext().startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
-        getBook();
+        getBookAvailable();
         getType();
         loadUserInfo();
-
+        getBook();
         return view;
     }
     private void getBook() {
@@ -85,10 +97,33 @@ public class HomeFrag extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listvalid.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Book shop = dataSnapshot.getValue(Book.class);
+                    listvalid.add(shop);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getBookAvailable() {
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("book");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mListBook.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Book shop = dataSnapshot.getValue(Book.class);
-                    mListBook.add(shop);
+
+                    if (shop.getQuantity()!=0){
+                        mListBook.add(shop);
+                    }
+
                 }
                 mBookAdapter.notifyDataSetChanged();
 

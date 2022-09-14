@@ -32,22 +32,20 @@
         android:layout_marginTop="88dp"
         android:layout_marginEnd="52dp"
         android:text="Update"
-        app:cornerRadius="20dp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgpic">
-    </com.google.android.material.button.MaterialButton>
+        app:layout_constraintTop_toBottomOf="@+id/imgpic"></com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btdiss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        app:cornerRadius="20dp"
-        android:backgroundTint="#03A9F4"
         android:layout_marginTop="88dp"
-        android:text="Dismiss"
+        android:backgroundTint="#8F8F8F"
+        android:text="Cancle"
+        app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgpic">
-    </com.google.android.material.button.MaterialButton>
+        app:layout_constraintTop_toBottomOf="@+id/imgpic"></com.google.android.material.button.MaterialButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,6 +56,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
                 for (Book book: Singleton.getInstance().ListBook){
                    if (book.getType().equals(Type.getName()) ){
                     Singleton.getInstance().ListFilter.add(book);
+                    Singleton.getInstance().type = book.getType();
                    }
                }
                 view.getContext().startActivity(new Intent(view.getContext(), PickActivity.class));

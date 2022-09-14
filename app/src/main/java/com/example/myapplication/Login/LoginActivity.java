@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         checkUser();
-        Log.e("das", "onCreate: "+mAuth );
+
         setContentView(binding.getRoot());
     }
     private void login(){

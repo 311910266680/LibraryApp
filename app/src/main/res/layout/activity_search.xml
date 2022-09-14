@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F21E1C29">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/pre"
@@ -26,26 +25,26 @@
         android:drawablePadding="10dp"
         android:hint="Search by Book title, Author, etc"
         android:padding="10dp"
-        android:textColor="#DAD7D7"
-        android:textColorHint="#8F8A8A"
+        android:textColor="#F21E1C29"
+        android:textColorHint="#7C7777"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pre"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck">
-    </EditText>
+        tools:ignore="TouchTargetSizeCheck"></EditText>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recsearch"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_list_filter"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ss">
+        app:layout_constraintTop_toBottomOf="@+id/ss"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_list_filter">
 
     </androidx.recyclerview.widget.RecyclerView>
 
