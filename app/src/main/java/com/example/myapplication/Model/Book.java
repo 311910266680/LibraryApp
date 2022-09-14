@@ -1,7 +1,7 @@
 package com.example.myapplication.Model;
 
 public class Book {
-    private int id;
+    private int id,quantity;
     private String image,title,type;
     private int price;
     public Book() {
@@ -13,6 +13,14 @@ public class Book {
         this.title = title;
         this.type = type;
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getType() {

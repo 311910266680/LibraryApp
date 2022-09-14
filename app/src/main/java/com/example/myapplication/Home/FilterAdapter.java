@@ -1,17 +1,18 @@
-package com.example.myapplication;
+package com.example.myapplication.Home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Book;
 
+import com.example.myapplication.R;
+import com.example.myapplication.Singleton;
 import com.example.myapplication.databinding.ItemListFilterBinding;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +49,11 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
         }
         Picasso.get().load(Filter.getImage()).into(holder.binding.imgfilter);
         holder.binding.Titlebook.setText(Filter.getTitle());
+        if (Filter.getQuantity()==0){
+            holder.binding.status.setText("Unavailable");
+            holder.binding.status.setTextColor(Color.parseColor("#ff421a"));
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,12 +76,9 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
 
 
         private ItemListFilterBinding binding;
-//        private ImageView Image;
-//        private TextView titlebook;
         public FilterViewHolder(@NonNull View itemView) {
             super(itemView);
-//            Image = itemView.findViewById(R.id.imgfilter);
-//            titlebook = itemView.findViewById(R.id.Titlebook);
+
 
             binding = ItemListFilterBinding.bind(itemView);
         }

@@ -3,6 +3,7 @@ package com.example.myapplication.Login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         checkUser();
+
         setContentView(binding.getRoot());
     }
     private void login(){

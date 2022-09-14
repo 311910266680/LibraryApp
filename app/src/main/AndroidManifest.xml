@@ -48,9 +48,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".PickActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".DetailBookActivity" />
+        <activity android:name=".Home.PickActivity" />
+        <activity android:name=".Home.SearchActivity" />
+        <activity android:name=".Home.DetailBookActivity" />
+        <activity android:name=".Account.NotificationsActivity" />
     </application>
 
 </manifest>

@@ -41,10 +41,10 @@ public class FavoriteMenuAdapter extends RecyclerView.Adapter<FavoriteMenuAdapte
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.binding.tvnamemenu.setText(listmenu.get(position).toString());
-        holder.binding.tvnamemenu.setTextColor(Color.parseColor("#094270"));
+        holder.binding.tvnamemenu.setTextColor(Color.parseColor("#DCD9D9"));
         holder.binding.imvline.setVisibility(View.INVISIBLE);
         if(selectedItem == position){
-            holder.binding.tvnamemenu.setTextColor(Color.parseColor("#FF5722"));
+            holder.binding.tvnamemenu.setTextColor(Color.parseColor("#F21E1C29"));
             holder.binding.imvline.setVisibility(View.VISIBLE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {

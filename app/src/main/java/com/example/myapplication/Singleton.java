@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.Home.DetailBookActivity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,7 @@ public class Singleton {
     private static Retrofit retrofit = null;
     private static List<BorrowBook> listBookBorrow;
     private static List<Book> listbookfavorite;
+    public String type;
     public  List<Book> ListBook, ListFilter;
 
     private static List<Book> listBookmain;
@@ -90,12 +92,4 @@ public class Singleton {
                     }
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-        return listBookmain;
-    }
 }

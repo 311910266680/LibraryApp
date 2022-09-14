@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Book;
+import com.example.myapplication.R;
+import com.example.myapplication.Singleton;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
