@@ -3,13 +3,10 @@ package com.example.myapplication.Model;
 public class BorrowBook {
     private String idbookborrow;
     private int bookid;
-//    private String img;
-//    private String title;
     private Book book;
     private int count;
     private String datestart;
     private String expirationdate;
-//    private int price;
     private int pricetotal;
     private long duration;
 
@@ -23,19 +20,6 @@ public class BorrowBook {
         this.pricetotal = pricetotal;
         this.duration = duration;
     }
-
-    //    public BorrowBook(int id, String img, String title, int count, String datestart, String expirationdate, int price, int pricetotal, long duration) {
-//        this.id = id;
-//        this.img = img;
-//        this.title = title;
-//        this.count = count;
-//        this.datestart = datestart;
-//        this.expirationdate = expirationdate;
-//        this.price = price;
-//        this.pricetotal = pricetotal;
-//        this.duration = duration;
-//    }
-
     public BorrowBook() {
     }
 
@@ -90,30 +74,6 @@ public class BorrowBook {
     public void setBook(Book book) {
         this.book = book;
     }
-
-    //    public String getImg() {
-//        return img;
-//    }
-//
-//    public void setImg(String img) {
-//        this.img = img;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public int getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(int price) {
-//        this.price = price;
-//    }
 
     public void setPricetotal(int pricetotal) {
         this.pricetotal = pricetotal;

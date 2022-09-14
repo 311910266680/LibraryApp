@@ -4,15 +4,11 @@
     package="com.example.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE">
-    </uses-permission>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".Borrow.FragmentBorrowActivityOrder"
+            android:exported="false" />
         <activity
             android:name=".Login.RegisterActivity"
             android:exported="false" />
@@ -45,7 +44,7 @@
             android:name=".NotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -53,6 +52,5 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".DetailBookActivity" />
     </application>
-
 
 </manifest>

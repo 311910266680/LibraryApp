@@ -21,7 +21,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="3"
-            tools:listitem="@layout/item_book_borrow"></androidx.recyclerview.widget.RecyclerView>
+            tools:listitem="@layout/item_book_borrow">
+        </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/textView5"
@@ -137,10 +138,11 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp"
         android:text="Order"
         android:layout_marginRight="10dp"
         android:textColor="@color/white"

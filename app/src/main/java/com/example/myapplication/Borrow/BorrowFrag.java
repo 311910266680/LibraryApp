@@ -1,5 +1,6 @@
 package com.example.myapplication.Borrow;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.myapplication.Login.RegisterActivity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.Model.Discount;
@@ -33,7 +35,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 
 public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowDialog, ClickUpdateBorrow {
@@ -44,6 +49,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     private List<Discount> discountslist;
     private float discount, discountdisp;
     private List<BorrowBook> borrowBookList;
+    private List<String> listBookBorrowID;
     private FirebaseAuth mauth;
 
     private String k;
@@ -54,35 +60,38 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         binding = FragmentBorrowBinding.inflate(inflater,container,false);
 
         mauth = FirebaseAuth.getInstance();
+
         getListBorrow();
 
         adapter = new BorrowAdapter(borrowBookList,this,this);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         binding.rcvborrow.setLayoutManager(linearLayoutManager);
         binding.rcvborrow.setAdapter(adapter);
 
         discountslist = new ArrayList<>();
+        getpricetotal();
         getdiscount();
 
 
         binding.btnapply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(binding.edtdiscount.getText().toString().isEmpty()){
-                    binding.edtdiscount.setError("You have not entered the discount code");
-                }
-                else {
-                    for(int i = 0; i< discountslist.size(); i++){
-                        if(discountslist.get(i).getCode().equals(binding.edtdiscount.getText().toString().trim())){
-                            discount = (float) discountslist.get(i).getPercent() ;
-                            discountdisp = (discount/100 ) * subtotal;
-                            removedot(discountdisp);
-                            binding.discount.setText("- "+ k);
-                            total = subtotal - (Integer.parseInt(k));
-                            binding.total.setText(String.valueOf(total));
-                        }
-                    }
-                }
+                applydiscount();
+            }
+        });
+        binding.btnorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(),FragmentBorrowActivityOrder.class);
+
+                i.putStringArrayListExtra("listidbookborrow", (ArrayList<String>) listBookBorrowID);
+                i.putExtra("subtotal",subtotal);
+                i.putExtra("discount",k);
+                i.putExtra("total",total);
+
+                startActivity(i);
             }
         });
 
@@ -104,8 +113,9 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
                     borrowBookList.add(item);
                 }
                 addBookTolistBorrow(borrowBookList);
-                Log.e("SsS", String.valueOf(borrowBookList.size()));
                 adapter.notifyDataSetChanged();
+                getpricetotal();
+
             }
 
             @Override
@@ -116,20 +126,15 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     }
 
     public void addBookTolistBorrow(List<BorrowBook> listborrowbook){
-        Log.e("checkkkk",String.valueOf(Singleton.getListBook().size()));
 
         for(int i = 0; i< Singleton.getListBook().size(); i++){
             for(int j = 0; j<listborrowbook.size(); j++){
                 if(listborrowbook.get(j).getBookid() == Singleton.getListBook().get(i).getId()){
-                    Log.e("check2",String.valueOf(listborrowbook.get(j).getBookid()));
                     listborrowbook.get(j).setBook(Singleton.getListBook().get(i));
                 }
             }
         }
     }
-
-
-
 
     @Override
     public void ClickDialogdelete(BorrowBook book) {
@@ -155,8 +160,17 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     }
 
     private void getpricetotal(){
-        for(int i = 0; i< Singleton.getListBookBorrow().size(); i++){
-           subtotal += Singleton.getListBookBorrow().get(i).getPricetotal();
+        listBookBorrowID = new ArrayList<>();
+        for(int i = 0; i< borrowBookList.size(); i++){
+           // Use add to list stringid book - khong lien quan o duoi
+            listBookBorrowID.add(borrowBookList.get(i).getIdbookborrow());
+
+
+           subtotal += borrowBookList.get(i).getPricetotal();
+        }
+        if(borrowBookList.size() == 0){
+            binding.subtotal.setText("0");
+            binding.total.setText("0");
         }
         binding.subtotal.setText(String.valueOf(subtotal));
         binding.total.setText(String.valueOf(subtotal));
@@ -175,7 +189,6 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
                     Discount discount = dataSnapshot.getValue(Discount.class);
                     discountslist.add(discount);
                 }
-                Log.e("check", String.valueOf(discountslist.size()));
 
             }
 
@@ -184,6 +197,23 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
 
             }
         });
+    }
+    private void applydiscount(){
+        if(binding.edtdiscount.getText().toString().isEmpty()){
+            binding.edtdiscount.setError("You have not entered the discount code");
+        }
+        else {
+            for(int i = 0; i< discountslist.size(); i++){
+                if(discountslist.get(i).getCode().equals(binding.edtdiscount.getText().toString().trim())){
+                    discount = (float) discountslist.get(i).getPercent() ;
+                    discountdisp = (discount/100 ) * subtotal;
+                    removedot(discountdisp);
+                    binding.discount.setText("- "+ k);
+                    total = subtotal - (Integer.parseInt(k));
+                    binding.total.setText(String.valueOf(total));
+                }
+            }
+        }
     }
 
     private void removedot(float x){

@@ -16,8 +16,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Singleton {
     private static Singleton instance;
+    private static Retrofit retrofit = null;
     private static List<BorrowBook> listBookBorrow;
     private static List<Book> listbookfavorite;
     public  List<Book> ListBook, ListFilter;
@@ -29,6 +33,15 @@ public class Singleton {
             ListBook = new ArrayList<>();
             ListFilter = new ArrayList<>();
         }
+    }
+    public static Retrofit getRetrofit(String baseUrl) {
+        if(retrofit == null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
     }
 
 
