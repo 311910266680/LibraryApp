@@ -142,13 +142,12 @@
             android:id="@+id/pricetotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="12dp"
             android:text="125.000 VND"
             android:textSize="10dp"
             app:layout_constraintStart_toEndOf="@+id/textView25"
-            app:layout_constraintTop_toBottomOf="@+id/tvduration">
-        </TextView>
+            app:layout_constraintTop_toBottomOf="@+id/tvduration"></TextView>
 
         <TextView
             android:id="@+id/tvduration"
