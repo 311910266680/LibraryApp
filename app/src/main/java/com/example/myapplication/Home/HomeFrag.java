@@ -2,6 +2,7 @@ package com.example.myapplication.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.example.myapplication.Home.BookAdapter;
 import com.example.myapplication.Home.SearchActivity;
 import com.example.myapplication.Home.TypeAdapter;
 import com.example.myapplication.Model.Book;
+import com.example.myapplication.Model.BorrowBook;
+import com.example.myapplication.Model.FavoriteBook;
 import com.example.myapplication.Model.Type;
 import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
@@ -36,10 +39,11 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFrag extends Fragment {
-    private BookAdapter mBookAdapter;
+    private BookAdapter mBookAdapter,mBookBorrowedAdapter;
     private TypeAdapter mTypeAdapter;
     private RecyclerView rcvBook,recPick,recBorrowed;
-    private List<Book> mListBook,listvalid;
+    private List<Book> mListBook,listvalid,listBorrowMain ;
+    private List<BorrowBook> listBorrowed;
     private List<Type> ListType;
     private CardView search;
     private TextView nameHome;
@@ -64,12 +68,18 @@ public class HomeFrag extends Fragment {
         recPick = view.findViewById(R.id.recsearch);
         recBorrowed = view.findViewById(R.id.rec3);
         search = view.findViewById(R.id.search);
+        listBorrowMain = new ArrayList<>();
+        listBorrowed = new ArrayList<>();
         mListBook = new ArrayList<>();
         ListType= new ArrayList<>();
         listvalid= new ArrayList<>();
         Singleton.getInstance().listBookmain = listvalid;
         mBookAdapter = new BookAdapter(mListBook,getContext());
+
+        mBookBorrowedAdapter = new BookAdapter(listBorrowMain,getContext());
+
         mTypeAdapter = new TypeAdapter(ListType,getContext());
+
         Singleton.getInstance().ListBook = listvalid;
         rcvBook.setAdapter(mBookAdapter);
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -79,7 +89,7 @@ public class HomeFrag extends Fragment {
         recPick.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recBorrowed.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recPick.setAdapter(mTypeAdapter);
-        recBorrowed.setAdapter(mBookAdapter);
+        recBorrowed.setAdapter(mBookBorrowedAdapter);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +100,7 @@ public class HomeFrag extends Fragment {
         getType();
         loadUserInfo();
         getBook();
+        getBorrowed();
         return view;
     }
     private void getBook() {
@@ -175,5 +186,52 @@ public class HomeFrag extends Fragment {
             }
         });
     }
+    private void getBorrowed() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("book");
 
-}
+        reference.child(firebaseAuth.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listBorrowed.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    BorrowBook borrowBook = dataSnapshot.getValue(BorrowBook.class);
+                    listBorrowed.add(borrowBook);
+
+                }
+                reference1.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        listBorrowMain.clear();
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            Book item = dataSnapshot.getValue(Book.class);
+
+                            for(BorrowBook a : listBorrowed) {
+                                if (a.getBookid()==item.getId()){
+                                    listBorrowMain.add(item);
+                                }
+
+                            }
+                            mBookBorrowedAdapter.notifyDataSetChanged();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+}}
