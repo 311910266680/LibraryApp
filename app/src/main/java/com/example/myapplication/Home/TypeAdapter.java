@@ -53,7 +53,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
             @Override
             public void onClick(View view) {
                 Singleton.getInstance().ListFilter.clear();
-                for (Book book: Singleton.getInstance().ListBook){
+                for (Book book: Singleton.getListBook()){
                    if (book.getType().equals(Type.getName()) ){
                     Singleton.getInstance().ListFilter.add(book);
                     Singleton.getInstance().type = book.getType();
