@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -102,6 +103,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 addOrderFirebase();
+                startActivity(new Intent(FragmentBorrowActivityOrder.this,MainActivity.class));
             }
         });
 
@@ -132,7 +134,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         }
     }
     private void callAPI(){
-        RetrofitAPICity retrofitAPICity = Singleton.getRetrofit("https://provinces.open-api.vn/").create(RetrofitAPICity.class);
+        RetrofitAPICity retrofitAPICity = Singleton.getInstance().getRetrofit("https://provinces.open-api.vn/").create(RetrofitAPICity.class);
         Call<List<Province>> call = retrofitAPICity.getCity();
         call.enqueue(new Callback<List<Province>>() {
             @Override

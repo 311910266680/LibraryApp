@@ -23,12 +23,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Singleton {
     private static Singleton instance;
     private static Retrofit retrofit = null;
-    private static List<BorrowBook> listBookBorrow;
-    private static List<Book> listbookfavorite;
+    public List<BorrowBook> listBookBorrow;
+    public List<Book> listbookfavorite;
     public String type;
     public  List<Book> ListBook, ListFilter;
 
-    private static List<Book> listBookmain;
+    public List<Book> listBookmain;
 
     public Singleton(){
         if (ListBook==null|| ListFilter==null){
@@ -36,7 +36,7 @@ public class Singleton {
             ListFilter = new ArrayList<>();
         }
     }
-    public static Retrofit getRetrofit(String baseUrl) {
+    public  Retrofit getRetrofit(String baseUrl) {
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -63,39 +63,7 @@ public class Singleton {
         context.startActivity(intent);
     }
 
-    public static List<BorrowBook> getListBookBorrow(){
-        if(listBookBorrow == null){
-            listBookBorrow = new ArrayList<>();
-        }
-        return  listBookBorrow;
-    }
-    public static List<Book> getListbookfavorite(){
-        if(listbookfavorite == null){
-            listbookfavorite = new ArrayList<>();
-        }
-        return  listbookfavorite;
-    }
-    public static List<Book> getListBook() {
-        if (listBookmain == null) {
-            listBookmain = new ArrayList<>();
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("book");
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    listBookmain.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Book shop = dataSnapshot.getValue(Book.class);
-                        listBookmain.add(shop);
-                    }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
-        return listBookmain;
-    }
+
 }

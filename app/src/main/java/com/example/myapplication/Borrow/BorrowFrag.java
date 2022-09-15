@@ -64,9 +64,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         getListBorrow();
 
 
-        Log.e("HAHA",String.valueOf(Singleton.getListBook().size()));
-
-        adapter = new BorrowAdapter(borrowBookList,this,this);
+        adapter = new BorrowAdapter(borrowBookList ,this,this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         binding.rcvborrow.setLayoutManager(linearLayoutManager);
@@ -115,6 +113,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
                     BorrowBook item = dataSnapshot.getValue(BorrowBook.class);
                     borrowBookList.add(item);
                 }
+
                 addBookTolistBorrow(borrowBookList);
                 adapter.notifyDataSetChanged();
                 getpricetotal();
@@ -130,10 +129,10 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
 
     public void addBookTolistBorrow(List<BorrowBook> listborrowbook){
 
-        for(int i = 0; i< Singleton.getListBook().size(); i++){
+        for(int i = 0; i< Singleton.getInstance().listBookmain.size(); i++){
             for(int j = 0; j<listborrowbook.size(); j++){
-                if(listborrowbook.get(j).getBookid() == Singleton.getListBook().get(i).getId()){
-                    listborrowbook.get(j).setBook(Singleton.getListBook().get(i));
+                if(listborrowbook.get(j).getBookid() == Singleton.getInstance().listBookmain.get(i).getId()){
+                    listborrowbook.get(j).setBook(Singleton.getInstance().listBookmain.get(i));
                 }
             }
         }
