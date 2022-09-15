@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Account.AccountFragment;
 import com.example.myapplication.Borrow.BorrowFrag;
 import com.example.myapplication.Favorite.FavoriteFrag;
-import com.example.myapplication.Home.HomeFrag;
+import com.example.myapplication.Fragment.HomeFrag;
 import com.example.myapplication.Home.SearchActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

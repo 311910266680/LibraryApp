@@ -75,12 +75,14 @@
         android:textColor="#DA37305E"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/icpicture"
         app:layout_constraintTop_toTopOf="@+id/circleImageView"
-        app:layout_constraintVertical_bias="0.19999999"></TextView>
+        app:layout_constraintVertical_bias="0.19999999">
+    </TextView>
 
     <ImageView
         android:id="@+id/imageView3"

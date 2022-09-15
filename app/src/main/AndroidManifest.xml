@@ -19,9 +19,6 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Borrow.FragmentBorrowActivityOrder"
-            android:exported="false" />
-        <activity
             android:name=".Login.RegisterActivity"
             android:exported="false" />
         <activity
@@ -52,6 +49,7 @@
         <activity android:name=".Home.SearchActivity" />
         <activity android:name=".Home.DetailBookActivity" />
         <activity android:name=".Account.NotificationsActivity" />
+        <activity android:name=".Borrow.FragmentBorrowActivityOrder" />
     </application>
 
 </manifest>

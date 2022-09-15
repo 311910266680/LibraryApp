@@ -63,6 +63,9 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
 
         getListBorrow();
 
+
+        Log.e("HAHA",String.valueOf(Singleton.getListBook().size()));
+
         adapter = new BorrowAdapter(borrowBookList,this,this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
@@ -147,26 +150,26 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         DatabaseReference myf = firebaseDatabase.getReference("Users");
         myf.child(mauth.getUid()).child("borrowbook").child(id).removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getContext(),"Delete ok", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Delete fail", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getContext(),"Delete ok", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(),"Delete fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void getpricetotal(){
         listBookBorrowID = new ArrayList<>();
         for(int i = 0; i< borrowBookList.size(); i++){
-           // Use add to list stringid book - khong lien quan o duoi
+            // Use add to list stringid book - khong lien quan o duoi
             listBookBorrowID.add(borrowBookList.get(i).getIdbookborrow());
 
 
-           subtotal += borrowBookList.get(i).getPricetotal();
+            subtotal += borrowBookList.get(i).getPricetotal();
         }
         if(borrowBookList.size() == 0){
             binding.subtotal.setText("0");

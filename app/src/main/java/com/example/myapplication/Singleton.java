@@ -46,8 +46,6 @@ public class Singleton {
         return retrofit;
     }
 
-
-
     public static Singleton getInstance(){
         if (instance==null){
             instance = new Singleton();
