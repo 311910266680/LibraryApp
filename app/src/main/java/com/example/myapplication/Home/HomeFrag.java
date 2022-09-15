@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,9 +81,6 @@ public class HomeFrag extends Fragment {
 
 
 
-
-
-
         mBookAdapter = new BookAdapter(Singleton.getListBook(),getContext());
         mTypeAdapter = new TypeAdapter(ListType,getContext());
         rcvBook.setAdapter(mBookAdapter);
@@ -101,33 +98,11 @@ public class HomeFrag extends Fragment {
                 getContext().startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
-//        getBook();
         getType();
         loadUserInfo();
 
         return view;
     }
-//    private void getBook() {
-//        FirebaseDatabase database =FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("book");
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mListBook.clear();
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    Book shop = dataSnapshot.getValue(Book.class);
-//                    mListBook.add(shop);
-//                }
-//                mBookAdapter.notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
     private void getType() {
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("type");
