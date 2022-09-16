@@ -4,6 +4,7 @@ package com.example.myapplication.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder> {
@@ -51,10 +53,8 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Singleton.getInstance().getListBook();
                 for (Book book: Singleton.getInstance().getListBook()){
                    if (book.getType().equals(Type.getName()) ){
-                    Singleton.getInstance().ListFilter.add(book);
                     Singleton.getInstance().type = book.getType();
                    }
                }

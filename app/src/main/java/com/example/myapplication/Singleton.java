@@ -5,7 +5,9 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.Home.BookAdapter;
 import com.example.myapplication.Home.DetailBookActivity;
+import com.example.myapplication.Home.FilterAdapter;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.google.firebase.database.DataSnapshot;
@@ -23,10 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Singleton {
     private static Singleton instance;
     private Retrofit retrofit = null;
-    private  List<BorrowBook> listBookBorrow;
-    private List<Book> listbookfavorite;
     public String type;
-    public  List<Book> ListFilter;
     private List<Book> listBookmain;
 
     public Singleton(){
@@ -39,11 +38,26 @@ public class Singleton {
         return instance;
     }
 
-    public List<Book> getListFilter(){
-        if(ListFilter == null){
-            ListFilter = new ArrayList<>();
-        }
-        return  ListFilter;
+    public void getListFilter(List<Book>ListFilter, FilterAdapter filterAdapter){
+        Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ListFilter.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Book shop = dataSnapshot.getValue(Book.class);
+                    if (shop.getType().equals(type)){
+                        ListFilter.add(shop);
+                    }
+
+                }
+                filterAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public Retrofit getRetrofit(String baseUrl) {
@@ -69,9 +83,7 @@ public class Singleton {
     public List<Book> getListBook() {
         if (listBookmain == null) {
             listBookmain = new ArrayList<>();
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("book");
-            myRef.addValueEventListener(new ValueEventListener() {
+            Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     listBookmain.clear();
@@ -88,5 +100,89 @@ public class Singleton {
             });
         }
         return listBookmain;
+    }
+    public void getBookAvailable(List<Book> list, BookAdapter bookAdapter) {
+        Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Book shop = dataSnapshot.getValue(Book.class);
+                    if (shop.getQuantity()!=0){
+                        list.add(shop);
+                    }
+                }
+                bookAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void getBorrowed(List<BorrowBook> listBorrowed, List<Book>listBor,BookAdapter mBookBorrowedAdapter) {
+
+        Constant.DB_USER.child(Constant.FU_MAUTH.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listBorrowed.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    BorrowBook borrowBook = dataSnapshot.getValue(BorrowBook.class);
+                    listBorrowed.add(borrowBook);
+                }
+                Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        listBor.clear();
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            Book item = dataSnapshot.getValue(Book.class);
+                            for(BorrowBook a : listBorrowed) {
+                                if (a.getBookid()==item.getId()){
+                                    listBor.add(item);
+                                }
+
+                            }
+                            mBookBorrowedAdapter.notifyDataSetChanged();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+    }
+    public void getBookSearch(List<Book>mListBook, FilterAdapter adapter ) {
+        Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mListBook.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Book shop = dataSnapshot.getValue(Book.class);
+                    mListBook.add(shop);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

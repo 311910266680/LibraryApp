@@ -20,6 +20,7 @@ import com.example.myapplication.Home.BookAdapter;
 import com.example.myapplication.Home.SearchActivity;
 import com.example.myapplication.Home.TypeAdapter;
 import com.example.myapplication.Model.Book;
+import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.Model.Type;
 import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
@@ -39,30 +40,38 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFrag extends Fragment {
     private FragmentHomeBinding binding;
-    private BookAdapter mBookAdapter;
+    private BookAdapter mBookAdapter,mBookBorrowedAdapter;
     private TypeAdapter mTypeAdapter;
     private List<Type> ListType;
-
+    private List<Book> listBookmain,listBor;
+    private List<BorrowBook> listBorrowed;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater,container,false);
-        ListType= new ArrayList<>();
+        listBookmain = new ArrayList<>();
+        ListType = new ArrayList<>();
+        listBor = new ArrayList<>();
+        listBorrowed = new ArrayList<>();
         binding.notifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), NotificationsActivity.class));
             }
         });
-        mBookAdapter = new BookAdapter(Singleton.getInstance().getListBook(), getContext());
+        mBookAdapter = new BookAdapter(listBookmain, getContext());
+
+        mBookBorrowedAdapter = new BookAdapter(listBor, getContext());
         mTypeAdapter = new TypeAdapter(ListType,getContext());
-        binding.rec1.setAdapter(mBookAdapter);
+
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
         binding.rec1.setLayoutManager(hori);
         binding.recsearch.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rec3.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rec1.setAdapter(mBookAdapter);
         binding.recsearch.setAdapter(mTypeAdapter);
-        binding.rec3.setAdapter(mBookAdapter);
+        binding.rec3.setAdapter(mBookBorrowedAdapter);
         binding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +80,9 @@ public class HomeFrag extends Fragment {
         });
         getType();
         loadUserInfo();
-
+        Singleton.getInstance().getBookAvailable(listBookmain,mBookAdapter);
+        Singleton.getInstance().getListBook();
+        Singleton.getInstance().getBorrowed(listBorrowed,listBor,mBookBorrowedAdapter);
         return  binding.getRoot();
     }
 

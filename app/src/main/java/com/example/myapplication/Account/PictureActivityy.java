@@ -35,7 +35,6 @@ public class PictureActivityy extends AppCompatActivity {
         binding = ActivityPictureActivityyBinding.inflate(getLayoutInflater());
          myuri = Uri.parse(getIntent().getStringExtra("img"));
 
-        Log.e("di", "onActivityResult: "+myuri );
         binding.imgpic.setImageURI(myuri);
         binding.btupdate.setOnClickListener(new View.OnClickListener() {
             @Override

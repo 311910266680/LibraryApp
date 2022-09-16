@@ -37,9 +37,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivitySearchBinding.inflate(getLayoutInflater());
-
         mListBook = new ArrayList<>();
-        getBook();
         binding.recsearch.setLayoutManager(new LinearLayoutManager(this));
         adapter = new FilterAdapter(mListBook,this);
         binding.recsearch.setAdapter(adapter);
@@ -66,6 +64,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         setContentView(binding.getRoot());
+        Singleton.getInstance().getBookSearch(mListBook,adapter);
     }
     private void filter(String text){
         List<Book> itemSearchList = new ArrayList<>();
@@ -76,21 +75,5 @@ public class SearchActivity extends AppCompatActivity {
         }
         adapter.setmListFilter(itemSearchList);
     }
-    private void getBook() {
-        Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mListBook.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Book shop = dataSnapshot.getValue(Book.class);
-                    mListBook.add(shop);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 }

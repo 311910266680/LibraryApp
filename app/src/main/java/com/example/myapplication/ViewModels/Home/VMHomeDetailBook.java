@@ -23,7 +23,7 @@ public class VMHomeDetailBook {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(context, "Add ok", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Added", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
