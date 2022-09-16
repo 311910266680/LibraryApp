@@ -15,5 +15,4 @@ public class Constant {
     public static DatabaseReference DB_TYPE = firebaseDatabase.getReference("type");
     public static String ID_USER = FU_MAUTH.getCurrentUser().getUid();
 
-
 }

@@ -31,12 +31,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private ProgressDialog progressDialog;
+    private FirebaseAuth mauth;
+    private FirebaseUser firebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
 
+        mauth = FirebaseAuth.getInstance();
+        firebaseUser = mauth.getCurrentUser();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
@@ -55,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         checkUser();
+
         setContentView(binding.getRoot());
     }
     private void login(){
@@ -72,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            Constant.FU_MAUTH.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -81,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             });
@@ -88,12 +95,13 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void checkUser() {
 
-        if(Constant.ID_USER == null){
+        if(firebaseUser == null){
+
         }
         else{
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            Constant.DB_USER.child(Constant.ID_USER).addListenerForSingleValueEvent(new ValueEventListener() {
+            Constant.DB_USER.child(mauth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     progressDialog.dismiss();
