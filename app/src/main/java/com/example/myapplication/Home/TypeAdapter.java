@@ -4,6 +4,7 @@ package com.example.myapplication.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder> {
@@ -42,21 +44,20 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TypeViewHolder holder, int position) {
-        Type type = mListType.get(position);
-        if (type ==null){
+        Type Type = mListType.get(position);
+        if (Type ==null){
             return;
         }
-        holder.TypeBook.setText(type.getName());
-        Picasso.get().load(type.getImage()).into(holder.ImgType);
+        holder.TypeBook.setText(Type.getName());
+        Picasso.get().load(Type.getImage()).into(holder.ImgType);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Singleton.getInstance().getListFilter().clear();
-                for(int i = 0; i< Singleton.getInstance().getListBook().size(); i++){
-                    if(Singleton.getInstance().getListBook().get(i).getType().equals(type.getName())){
-                        Singleton.getInstance().getListFilter().add(Singleton.getInstance().getListBook().get(i));
-                    }
-                }
+                for (Book book: Singleton.getInstance().getListBook()){
+                   if (book.getType().equals(Type.getName()) ){
+                    Singleton.getInstance().type = book.getType();
+                   }
+               }
                 view.getContext().startActivity(new Intent(view.getContext(), PickActivity.class));
             }
         });
@@ -72,6 +73,8 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
     }
 
     public class TypeViewHolder extends RecyclerView.ViewHolder{
+
+
 
         private TextView TypeBook;
         private ImageView ImgType;

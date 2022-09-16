@@ -2,6 +2,7 @@ package com.example.myapplication.Home;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,6 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
     @Override
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int position) {
         Book Filter = mListFilter.get(position);
-        if (Filter ==null){
-            return;
-        }
         Picasso.get().load(Filter.getImage()).into(holder.binding.imgfilter);
         holder.binding.Titlebook.setText(Filter.getTitle());
         if (Filter.getQuantity()==0){
@@ -78,7 +76,6 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
         private ItemListFilterBinding binding;
         public FilterViewHolder(@NonNull View itemView) {
             super(itemView);
-
 
             binding = ItemListFilterBinding.bind(itemView);
         }
