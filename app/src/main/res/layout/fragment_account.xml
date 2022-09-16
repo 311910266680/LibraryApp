@@ -249,9 +249,10 @@
 
                 <TextView
                     android:id="@+id/notification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
                     android:text="Your Notifications"
                     android:textColor="#DA37305E"
                     android:textSize="16sp"
@@ -277,9 +278,10 @@
 
                 <TextView
                     android:id="@+id/history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
                     android:text="History"
                     android:textColor="#DA37305E"
                     android:textSize="16sp"
@@ -305,9 +307,10 @@
 
                 <TextView
                     android:id="@+id/setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
                     android:text="Setting"
                     android:textColor="#DA37305E"
                     android:textSize="16sp"
@@ -334,9 +337,10 @@
 
                 <TextView
                     android:id="@+id/about"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
                     android:text="About "
                     android:textColor="#DA37305E"
                     android:textSize="16sp"
@@ -362,9 +366,10 @@
 
                 <TextView
                     android:id="@+id/btnlogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
                     android:text="Log out"
                     android:textColor="#FA2F20"
                     android:textSize="16sp"
