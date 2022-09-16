@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-
 public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder> {
     private List<Type> mListType;
     private Context mContext;
@@ -52,8 +51,8 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Singleton.getInstance().ListFilter.clear();
-                for (Book book: Singleton.getListBook()){
+                Singleton.getInstance().getListBook();
+                for (Book book: Singleton.getInstance().getListBook()){
                    if (book.getType().equals(Type.getName()) ){
                     Singleton.getInstance().ListFilter.add(book);
                     Singleton.getInstance().type = book.getType();
@@ -64,7 +63,6 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
         });
 
     }
-
 
     @Override
     public int getItemCount() {

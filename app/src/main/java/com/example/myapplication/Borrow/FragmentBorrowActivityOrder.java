@@ -4,34 +4,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.myapplication.Login.RegisterActivity;
+import com.example.myapplication.Constant;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.District;
 import com.example.myapplication.Model.Province;
 import com.example.myapplication.Model.Ward;
-import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
 import com.example.myapplication.databinding.FragmentBorrowActivityOrderBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,17 +43,11 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
     private String[] courses;
     private List<Province> provinceList;
     private List<String> nameprovincelist;
-
     private List<District> districtList;
     private List<String> namedistrictList;
-
     private List<Ward> wardList;
     private List<String> namewardList;
-
     private int t1hour, t1minute;
-    private FirebaseAuth mauth;
-
-
     private List<String> listIdBorrow;
     private int subTotal, discount, total;
 
@@ -69,7 +59,6 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         binding = FragmentBorrowActivityOrderBinding.inflate(getLayoutInflater());
 
         courses = new String[]{"Pick up at the library", "Shipping"};
-
         ArrayAdapter ad = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,courses);
         binding.spndelivery.setAdapter(ad);
         binding.spndelivery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -95,8 +84,14 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                 showHour();
             }
         });
-        callAPI();
 
+        nameprovincelist = new ArrayList<>();
+        provinceList = new ArrayList<>();
+        nameprovincelist = new ArrayList<>();
+        provinceList = new ArrayList<>();
+        namewardList = new ArrayList<>();
+        wardList = new ArrayList<>();
+        callAPI();
 
         binding.btnorderr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +103,6 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         setContentView(binding.getRoot());
 
     }
-
-
-
-
 
     private void pickSpiner(int i){
         if(courses[i].equals("Pick up at the library")){
@@ -132,7 +123,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         }
     }
     private void callAPI(){
-        RetrofitAPICity retrofitAPICity = Singleton.getRetrofit("https://provinces.open-api.vn/").create(RetrofitAPICity.class);
+        RetrofitAPICity retrofitAPICity = Singleton.getInstance().getRetrofit("https://provinces.open-api.vn/").create(RetrofitAPICity.class);
         Call<List<Province>> call = retrofitAPICity.getCity();
         call.enqueue(new Callback<List<Province>>() {
             @Override
@@ -147,7 +138,6 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                     }
                     ArrayAdapter add = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,nameprovincelist);
                     binding.edtprovince.setAdapter(add);
-
                     callDistrict();
                 }
             }
@@ -237,8 +227,6 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         timePickerDialog.updateTime(t1hour,t1minute);
         timePickerDialog.show();
     }
-
-
     private void getDataFromIntent(){
         listIdBorrow = getIntent().getStringArrayListExtra("listidbookborrow");
         subTotal = getIntent().getIntExtra("subtotal",1);
@@ -256,14 +244,10 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         else {
             Random rand = new Random();
             String uniqueID = UUID.randomUUID().toString();
-            mauth = FirebaseAuth.getInstance();
-            String iduser = mauth.getUid();
-
             getDataFromIntent();
 
             String note = binding.edtnote.getText().toString();
             String name = binding.edtreceivename.getText().toString();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
 
             if(binding.spndelivery.getSelectedItem().toString().equals("Pick up at the library") ){
                 HashMap<String, Object> hashMap = new HashMap<>();
@@ -271,13 +255,15 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                 hashMap.put("borrowbookid",listIdBorrow);
                 hashMap.put("Receivename",name);
                 hashMap.put("hours",binding.tvhour.getText().toString());
-                hashMap.put("iduser",iduser);
+                hashMap.put("iduser", Constant.ID_USER);
                 hashMap.put("note",note);
 
-                databaseReference.child("Pick up at the library").child(uniqueID).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                Constant.DB_ORDER.child("Pick up at the library").child(uniqueID).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(FragmentBorrowActivityOrder.this,"sucessfull", Toast.LENGTH_LONG).show();
+                        backhome();
+
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -294,13 +280,14 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                 hashMap.put("borrowbookid",listIdBorrow);
                 hashMap.put("Receivename",name);
                 hashMap.put("address",address);
-                hashMap.put("iduser",iduser);
+                hashMap.put("iduser",Constant.ID_USER);
                 hashMap.put("note",note);
 
-                databaseReference.child("Shipping").child(uniqueID).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                Constant.DB_ORDER.child("Shipping").child(uniqueID).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(FragmentBorrowActivityOrder.this,"sucessfull", Toast.LENGTH_LONG).show();
+                        backhome();
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -311,5 +298,9 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                 });
             }
         }
+    }
+    private void backhome(){
+        Intent i = new Intent(FragmentBorrowActivityOrder.this, MainActivity.class);
+        startActivity(i);
     }
 }

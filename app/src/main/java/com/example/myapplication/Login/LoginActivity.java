@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Constant;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
 
 
-
-
-
-
-
-
-
-
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
-        mAuth = FirebaseAuth.getInstance();
         binding.btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         checkUser();
-
         setContentView(binding.getRoot());
     }
     private void login(){
@@ -83,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            Constant.FU_MAUTH.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -98,16 +87,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     private void checkUser() {
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        if(firebaseUser==null){
-
-
+        if(Constant.ID_USER == null){
         }
-        else{ progressDialog.setMessage("Logging in...");
+        else{
+            progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            Constant.DB_USER.child(Constant.ID_USER).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     progressDialog.dismiss();

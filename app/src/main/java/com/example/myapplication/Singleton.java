@@ -22,21 +22,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Singleton {
     private static Singleton instance;
-    private static Retrofit retrofit = null;
-    private static List<BorrowBook> listBookBorrow;
-    private static List<Book> listbookfavorite;
+    private Retrofit retrofit = null;
+    private  List<BorrowBook> listBookBorrow;
+    private List<Book> listbookfavorite;
     public String type;
-    public  List<Book> ListBook, ListFilter;
-
-    private static List<Book> listBookmain;
+    public  List<Book> ListFilter;
+    private List<Book> listBookmain;
 
     public Singleton(){
-        if (ListBook==null|| ListFilter==null){
-            ListBook = new ArrayList<>();
+
+    }
+    public static Singleton getInstance(){
+        if (instance ==null){
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    public List<Book> getListFilter(){
+        if(ListFilter == null){
             ListFilter = new ArrayList<>();
         }
+        return  ListFilter;
     }
-    public static Retrofit getRetrofit(String baseUrl) {
+
+    public Retrofit getRetrofit(String baseUrl) {
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -44,13 +54,6 @@ public class Singleton {
                     .build();
         }
         return retrofit;
-    }
-
-    public static Singleton getInstance(){
-        if (instance==null){
-            instance = new Singleton();
-        }
-        return instance;
     }
     public void getDetail(Context context, Book book ){
         Intent intent = new Intent(context, DetailBookActivity.class);
@@ -63,19 +66,7 @@ public class Singleton {
         context.startActivity(intent);
     }
 
-    public static List<BorrowBook> getListBookBorrow(){
-        if(listBookBorrow == null){
-            listBookBorrow = new ArrayList<>();
-        }
-        return  listBookBorrow;
-    }
-    public static List<Book> getListbookfavorite(){
-        if(listbookfavorite == null){
-            listbookfavorite = new ArrayList<>();
-        }
-        return  listbookfavorite;
-    }
-    public static List<Book> getListBook() {
+    public List<Book> getListBook() {
         if (listBookmain == null) {
             listBookmain = new ArrayList<>();
             FirebaseDatabase database = FirebaseDatabase.getInstance();

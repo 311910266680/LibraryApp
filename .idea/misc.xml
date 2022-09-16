@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_home.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_login.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_main.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/activity_register.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_account.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_account_bottomsheet.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_borrow_activity_order.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/fragment_home.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_book.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_book_borrow.xml" value="0.21557971014492755" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/LibraryApp/app/src/main/res/layout/item_book_favorite.xml" value="0.23778664007976072" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/LibraryApp/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.3225" />

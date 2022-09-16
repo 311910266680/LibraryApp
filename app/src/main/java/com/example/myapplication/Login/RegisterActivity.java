@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Constant;
 import com.example.myapplication.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,19 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-
-
     private ActivityRegisterBinding binding;
     private  String name,age,password,email;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-
-        mAuth = FirebaseAuth.getInstance();
 
         binding.btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             binding.edtpassword.setError("Min password lenght should be 6 character!");
         }
         else {
-            mAuth.createUserWithEmailAndPassword(email, password)
+            Constant.FU_MAUTH.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
@@ -87,16 +81,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     private void createuser(){
-        String uid = mAuth.getUid();
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id",uid);
+        hashMap.put("id", Constant.ID_USER);
         hashMap.put("name",name);
         hashMap.put("password",password);
         hashMap.put("email",email);
         hashMap.put("profileImage","");
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReference.child(uid).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+        Constant.DB_USER.child(Constant.ID_USER).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(RegisterActivity.this,"Regis sucessfull", Toast.LENGTH_LONG).show();

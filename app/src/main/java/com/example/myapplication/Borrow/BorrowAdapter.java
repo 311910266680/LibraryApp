@@ -37,7 +37,6 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
 
         return new Viewholder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
 
@@ -59,7 +58,6 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         mclickdialogdelete.ClickDialogdelete(listbookborrow.get(position));
                         dialog.dismiss();
                     }
@@ -76,15 +74,12 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
                 return false;
             }
         });
-
         holder.binding.icedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mclickshowdialog.clickShowdialog(listbookborrow.get(position));
             }
         });
-
-
     }
 
     @Override

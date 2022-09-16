@@ -24,7 +24,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         this.mListBook = mListBook;
         this.mContext = mContext;
     }
-
     @NonNull
     @Override
 
@@ -60,7 +59,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public class BookViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView Image;
-
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
 

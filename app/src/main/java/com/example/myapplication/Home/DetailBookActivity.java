@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Borrow.BorrowBottomsheet;
 import com.example.myapplication.Borrow.CLickQuantity;
+import com.example.myapplication.Constant;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewModels.Home.VMHomeDetailBook;
 import com.example.myapplication.databinding.ActivityDetailbookBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,7 +40,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
-    private FirebaseAuth firebaseAuth;
     private ActivityDetailbookBinding binding;
     private List<Book> mListBook;
     private String img, title, type;
@@ -49,14 +50,14 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getBook();
+
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        firebaseAuth = FirebaseAuth.getInstance();
-        Intent get = getIntent();
-
         mListBook = new ArrayList<>();
-        id = get.getIntExtra("id",1);
+        VMHomeDetailBook vmHomeDetailBook = new VMHomeDetailBook();
 
+
+
+        id = getIntent().getIntExtra("id",1);
         binding.back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,18 +76,19 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
             @Override
             public void onClick(View v) {
                 if(isInMyFavorite){
-                    removeFromFavorite(getApplicationContext(),String.valueOf(id));
+                    vmHomeDetailBook.removeFromFavorite(getApplicationContext(),String.valueOf(id));
                 }
                 else {
-                    addToFavorite(getApplicationContext(),String.valueOf(id));
+                    vmHomeDetailBook.addToFavorite(getApplicationContext(),String.valueOf(id));
                 }
 
             }
         });
         checkIsFavorite(this,String.valueOf(id));
 
-    }
+        setContentView(binding.getRoot());
 
+    }
     @Override
     public void ClickQuantityBorrow(int quantity, String date) {
 
@@ -109,9 +111,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String uid = firebaseAuth.getUid();
+
         String idborrowbook = "T"+id;
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("idbookborrow",idborrowbook);
         hashMap.put("bookid",id);
@@ -122,8 +123,7 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         hashMap.put("duration", dayconvert);
 
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(uid).child("borrowbook").child(idborrowbook).setValue(hashMap)
+        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(idborrowbook).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -135,15 +135,10 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
                         Toast.makeText(getApplicationContext(), "Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-//
-//        Singleton.getListBookBorrow().add(new BorrowBook(Singleton.getListBookBorrow().size() + 1,img,title,quantity,current,date,price, price * quantity,dayys));
         Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
-
-
     public void checkIsFavorite(Context context, String bookId ){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.child(firebaseAuth.getUid()).child("favorite").child(bookId)
+        Constant.DB_USER.child(Constant.ID_USER).child("favorite").child(bookId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -162,48 +157,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
                     }
                 });
     }
-    public void addToFavorite(Context context, String bookId  ){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        HashMap<String, Object> hashMap =new HashMap<>();
-        hashMap.put("bookId",""+bookId);
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).child("favorite").child(bookId).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(context, "Add to your favorite", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Failed to add your favorite"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-    }
-
-    public void removeFromFavorite(Context context, String bookId){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).child("favorite").child(bookId).removeValue()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(context, "Remove from your favorite", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Failed to remove from your favorite"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
     private void getBook() {
-        FirebaseDatabase database =FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("book");
-        myRef.addValueEventListener(new ValueEventListener() {
+        Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mListBook.clear();

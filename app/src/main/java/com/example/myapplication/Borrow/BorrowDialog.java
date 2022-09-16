@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
+import com.example.myapplication.ViewModels.Borrow.VMBorrowDialog;
 import com.example.myapplication.databinding.FragmentBorrowDialogBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,10 +35,10 @@ import java.util.concurrent.TimeUnit;
 public class BorrowDialog extends DialogFragment{
 
     private ClickUpdateBorrow mclickupdate;
+    VMBorrowDialog vmBorrowDialog;
+
     int count, price, duration, pricetotal, quantity;
     String id, datestart,expirationdate, date;
-    private FirebaseAuth mauth;
-    long tmp1 , tmp2 ;
 
     @Override
     public void onStart() {
@@ -62,37 +63,16 @@ public class BorrowDialog extends DialogFragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentBorrowDialogBinding.inflate(inflater,container,false);
+        vmBorrowDialog = new VMBorrowDialog();
 
-        id = getArguments().getString("id");
-        count = getArguments().getInt("count");
-        datestart = getArguments().getString("datestart");
-        expirationdate = getArguments().getString("expirationdate");
-        price = getArguments().getInt("price",1);
-        binding.btnquantity.setText(String.valueOf(count));
-        binding.tvdate.setText(expirationdate);
-        mauth = FirebaseAuth.getInstance();
+        getExtraBR();
 
         binding.tvdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                binding.tvdate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            }
-                        },
-                        year, month, day);
-                datePickerDialog.show();
+                showDatePicker();
             }
         });
-
         binding.btnminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +84,6 @@ public class BorrowDialog extends DialogFragment{
                 binding.btnquantity.setText(String.valueOf(k));
             }
         });
-
         binding.btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +98,6 @@ public class BorrowDialog extends DialogFragment{
                 dismiss();
             }
         });
-
         binding.btnupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,41 +106,39 @@ public class BorrowDialog extends DialogFragment{
                 dismiss();
             }
         });
-
         return binding.getRoot();
     }
 
 
-    public void updateborrowbook(){
+    private void updateborrowbook(){
         quantity = Integer.parseInt(binding.btnquantity.getText().toString());
         date = binding.tvdate.getText().toString();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            Date date1 = df.parse(datestart);
-            Date date2 = df.parse(date);
-            tmp1 = Math.abs(date2.getTime() - date1.getTime());
-            tmp2 = TimeUnit.DAYS.convert(tmp1, TimeUnit.MILLISECONDS);
-
-            if(tmp2 == 0.0f){
-                tmp2 = 1;
-            }
-            duration = Math.toIntExact(tmp2);
-            if(duration == 0){
-                duration = 1;
-            }
-
-
-            pricetotal = price * quantity * duration;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myf = firebaseDatabase.getReference("Users");
-        myf.child(mauth.getUid()).child("borrowbook").child(id).child("count").setValue(quantity);
-        myf.child(mauth.getUid()).child("borrowbook").child(id).child("expirationdate").setValue(date);
-        myf.child(mauth.getUid()).child("borrowbook").child(id).child("duration").setValue(duration);
-        myf.child(mauth.getUid()).child("borrowbook").child(id).child("pricetotal").setValue(pricetotal);
+        vmBorrowDialog.VMUpdateBorrowDialog(id, datestart,date,duration,pricetotal, price,quantity);
+    }
+    private void getExtraBR(){
+        id = getArguments().getString("id");
+        count = getArguments().getInt("count");
+        datestart = getArguments().getString("datestart");
+        expirationdate = getArguments().getString("expirationdate");
+        price = getArguments().getInt("price",1);
+        binding.btnquantity.setText(String.valueOf(count));
+        binding.tvdate.setText(expirationdate);
+    }
+    private void showDatePicker(){
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        binding.tvdate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                    }
+                },
+                year, month, day);
+        datePickerDialog.show();
     }
 }

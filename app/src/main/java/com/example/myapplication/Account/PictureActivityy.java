@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Constant;
 import com.example.myapplication.databinding.ActivityPictureActivityyBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,12 +29,10 @@ public class PictureActivityy extends AppCompatActivity {
 
     private ActivityPictureActivityyBinding binding;
     private Uri myuri = null;
-    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPictureActivityyBinding.inflate(getLayoutInflater());
-        firebaseAuth = FirebaseAuth.getInstance();
          myuri = Uri.parse(getIntent().getStringExtra("img"));
 
         Log.e("di", "onActivityResult: "+myuri );
@@ -53,14 +52,11 @@ public class PictureActivityy extends AppCompatActivity {
     }
     private void updateProfile(String imageUrl) { //
         HashMap<String, Object> hashMap = new HashMap<>();
-
-
         if(myuri !=null){
             hashMap.put("profileImage",""+imageUrl);
         }
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReference.child(firebaseAuth.getUid())
+       Constant.DB_USER.child(Constant.ID_USER)
                 .updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -82,7 +78,7 @@ public class PictureActivityy extends AppCompatActivity {
     private void uploadImage() {
 
         //Lay anh moi thay anh cu~
-        String filePath = "ProfileImages/"+firebaseAuth.getUid();
+        String filePath = "ProfileImages/"+Constant.ID_USER;
 
         StorageReference reference = FirebaseStorage.getInstance().getReference(filePath);
         reference.putFile(myuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

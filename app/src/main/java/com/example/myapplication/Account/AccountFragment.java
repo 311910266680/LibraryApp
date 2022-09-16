@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Constant;
 import com.example.myapplication.Favorite.FavoriteFrag;
 import com.example.myapplication.Login.LoginActivity;
 import com.example.myapplication.R;
@@ -41,19 +42,14 @@ import java.io.ByteArrayOutputStream;
 public class AccountFragment extends Fragment implements ClickChosepicture{
 
 
-    private FirebaseAuth mAuth;
     private FragmentAccountBinding binding;
-    private FirebaseAuth firebaseAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        firebaseAuth = FirebaseAuth.getInstance();
+
         loadUserInfo();
-
         binding = FragmentAccountBinding.inflate(inflater,container,false);
-        mAuth = FirebaseAuth.getInstance();
         binding.history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,8 +84,8 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
         binding.btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-                FirebaseUser firebaseUser= mAuth.getCurrentUser();
+                Constant.FU_MAUTH.signOut();
+                FirebaseUser firebaseUser= Constant.FU_MAUTH.getCurrentUser();
                 if(firebaseUser==null){
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
@@ -97,14 +93,12 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
             }
         });
 
-
         return binding.getRoot();
     }
 
     private void loadUserInfo() {
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+        Constant.DB_USER.child(Constant.ID_USER).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = ""+snapshot.child("name").getValue();
@@ -123,8 +117,6 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
             }
         });
     }
-
-
 
     @Override
     public void Clickchosepicture(int id) {
