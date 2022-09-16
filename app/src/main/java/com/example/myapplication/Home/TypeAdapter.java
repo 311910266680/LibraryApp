@@ -42,22 +42,21 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TypeViewHolder holder, int position) {
-        Type Type = mListType.get(position);
-        if (Type ==null){
+        Type type = mListType.get(position);
+        if (type ==null){
             return;
         }
-        holder.TypeBook.setText(Type.getName());
-        Picasso.get().load(Type.getImage()).into(holder.ImgType);
+        holder.TypeBook.setText(type.getName());
+        Picasso.get().load(type.getImage()).into(holder.ImgType);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Singleton.getInstance().getListBook();
-                for (Book book: Singleton.getInstance().getListBook()){
-                   if (book.getType().equals(Type.getName()) ){
-                    Singleton.getInstance().ListFilter.add(book);
-                    Singleton.getInstance().type = book.getType();
-                   }
-               }
+                Singleton.getInstance().getListFilter().clear();
+                for(int i = 0; i< Singleton.getInstance().getListBook().size(); i++){
+                    if(Singleton.getInstance().getListBook().get(i).getType().equals(type.getName())){
+                        Singleton.getInstance().getListFilter().add(Singleton.getInstance().getListBook().get(i));
+                    }
+                }
                 view.getContext().startActivity(new Intent(view.getContext(), PickActivity.class));
             }
         });
@@ -73,8 +72,6 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
     }
 
     public class TypeViewHolder extends RecyclerView.ViewHolder{
-
-
 
         private TextView TypeBook;
         private ImageView ImgType;

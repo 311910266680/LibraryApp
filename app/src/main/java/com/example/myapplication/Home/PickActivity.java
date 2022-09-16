@@ -26,7 +26,9 @@ public class PickActivity extends AppCompatActivity {
         binding = ActivityPickBinding.inflate(getLayoutInflater());
 
         binding.typeList.setText(Singleton.getInstance().type);
+
         mFilterAdapter = new FilterAdapter(Singleton.getInstance().getListFilter(), getApplicationContext());
+
         binding.recFilter.setAdapter(mFilterAdapter);
         LinearLayoutManager hori = new LinearLayoutManager(this);
         binding.recFilter.setLayoutManager(hori);

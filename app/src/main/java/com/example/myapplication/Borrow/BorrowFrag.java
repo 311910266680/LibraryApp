@@ -82,6 +82,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         binding.btnorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(getActivity(),FragmentBorrowActivityOrder.class);
                 i.putStringArrayListExtra("listidbookborrow", (ArrayList<String>) listBookBorrowID);
                 i.putExtra("subtotal",subtotal);

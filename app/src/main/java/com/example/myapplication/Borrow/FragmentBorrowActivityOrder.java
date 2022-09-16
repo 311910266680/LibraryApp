@@ -93,7 +93,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         wardList = new ArrayList<>();
         callAPI();
 
-        binding.btnorderr.setOnClickListener(new View.OnClickListener() {
+        binding.btnpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addOrderFirebase();
@@ -245,7 +245,6 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
             Random rand = new Random();
             String uniqueID = UUID.randomUUID().toString();
             getDataFromIntent();
-
             String note = binding.edtnote.getText().toString();
             String name = binding.edtreceivename.getText().toString();
 
@@ -300,7 +299,9 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         }
     }
     private void backhome(){
-        Intent i = new Intent(FragmentBorrowActivityOrder.this, MainActivity.class);
-        startActivity(i);
+        BorrowDialogOrder borrowDialogOrder = new BorrowDialogOrder();
+        borrowDialogOrder.show(getSupportFragmentManager(),"ok");
+//        Intent i = new Intent(FragmentBorrowActivityOrder.this, MainActivity.class);
+//        startActivity(i);
     }
 }
