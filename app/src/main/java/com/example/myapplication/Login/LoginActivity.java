@@ -11,10 +11,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Constant;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,18 +30,22 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
+    private FirebaseAuth mauth;
+    private FirebaseUser firebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
 
+        mauth = FirebaseAuth.getInstance();
+        firebaseUser = mauth.getCurrentUser();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
-        mAuth = FirebaseAuth.getInstance();
         binding.btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -79,23 +86,22 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Login failt", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             });
         }
     }
     private void checkUser() {
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        if(firebaseUser==null){
-
+        if(firebaseUser == null){
 
         }
-        else{ progressDialog.setMessage("Logging in...");
+        else{
+            progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            Constant.DB_USER.child(mauth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     progressDialog.dismiss();
