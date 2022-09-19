@@ -51,7 +51,10 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
             holder.binding.status.setText("Unavailable");
             holder.binding.status.setTextColor(Color.parseColor("#ff421a"));
         }
+        else   { holder.binding.status.setTextColor(Color.parseColor("#1DE9B6"));
+                 holder.binding.status.setText("Available");}
 
+        Log.e("das", "onBindViewHolder: "+ Filter.getId()+Filter.getQuantity());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
