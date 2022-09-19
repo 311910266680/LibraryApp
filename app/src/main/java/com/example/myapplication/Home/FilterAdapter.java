@@ -46,6 +46,7 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int position) {
         Book Filter = mListFilter.get(position);
         Picasso.get().load(Filter.getImage()).into(holder.binding.imgfilter);
+        holder.binding.Author.setText(Filter.getAuthor());
         holder.binding.Titlebook.setText(Filter.getTitle());
         if (Filter.getQuantity()==0){
             holder.binding.status.setText("Unavailable");

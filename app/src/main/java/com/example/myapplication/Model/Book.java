@@ -2,7 +2,7 @@ package com.example.myapplication.Model;
 
 public class Book {
     private int id,quantity;
-    private String image,title,type;
+    private String image,title,type,author;
     private int price;
     public Book() {
     }
@@ -13,6 +13,14 @@ public class Book {
         this.title = title;
         this.type = type;
         this.price = price;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public int getQuantity() {

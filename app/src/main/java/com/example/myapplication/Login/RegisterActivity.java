@@ -22,14 +22,13 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private FirebaseAuth mauth;
-    private FirebaseUser firebaseUser;
+
     private  String name,age,password,email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         mauth = FirebaseAuth.getInstance();
-        firebaseUser = mauth.getCurrentUser();
         binding.btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,13 +91,13 @@ public class RegisterActivity extends AppCompatActivity {
         Constant.DB_USER.child(mauth.getUid()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(RegisterActivity.this,"Regis sucessfull", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this,"Register sucessfull", Toast.LENGTH_LONG).show();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this,"Regis Fail !!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this,"Register Fail !!!", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -41,11 +41,12 @@ import java.util.concurrent.TimeUnit;
 
 public class DetailBookActivity  extends AppCompatActivity implements CLickQuantity {
     private ActivityDetailbookBinding binding;
-    private List<Book> mListBook;
-    private String img, title, type;
+    private List<Book> mListBook,listSimilar;
+    private String img, title, author,type;
     private int id,price, dayconvert;
     private long dateeee,dayys;
     boolean isInMyFavorite = false;
+    private BookAdapter adapterSimilar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +55,7 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         binding = ActivityDetailbookBinding.inflate(getLayoutInflater());
         mListBook = new ArrayList<>();
         VMHomeDetailBook vmHomeDetailBook = new VMHomeDetailBook();
-
-
-
+        listSimilar= new ArrayList<>();
         id = getIntent().getIntExtra("id",1);
         binding.back2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +84,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
             }
         });
         checkIsFavorite(this,String.valueOf(id));
-
+        adapterSimilar = new BookAdapter(listSimilar,getApplicationContext());
+        binding.similar.setAdapter(adapterSimilar);
         setContentView(binding.getRoot());
 
     }
@@ -172,13 +172,21 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
                         price=book.getPrice();
                         img=book.getImage();
                         type=book.getType();
+                        author=book.getAuthor();
                     }
                 }
+                binding.authorDetail.setText(author);
                 binding.titleDetail.setText(title);
                 binding.tvprice.setText(String.valueOf(price));
                 Picasso.get().load(img).into(binding.imageDetail);
-
-                Log.e("TAG", "onDataChange: "+mListBook );
+                for(Book book:  mListBook){
+                    if (book.getType().contains(type)){
+                        listSimilar.add(book);
+                        if (book.getId()==id)
+                            listSimilar.remove(book);
+                    }
+                    adapterSimilar.notifyDataSetChanged();
+                }
             }
 
             @Override

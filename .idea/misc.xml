@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/activity_detailbook.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/activity_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/fragment_account.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/fragment_borrow.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/fragment_borrow_activity_order.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/fragment_borrow_dialog_order.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/item_list_filter.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/item_pick.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/TienHa/AndroidStudioProjects/New folder/LibraryApp/app/src/main/res/layout/item_recenty.xml" value="0.36666666666666664" />
