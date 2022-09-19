@@ -45,11 +45,16 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
     @Override
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int position) {
         Book Filter = mListFilter.get(position);
+
         Picasso.get().load(Filter.getImage()).into(holder.binding.imgfilter);
         holder.binding.Titlebook.setText(Filter.getTitle());
         if (Filter.getQuantity()==0){
             holder.binding.status.setText("Unavailable");
             holder.binding.status.setTextColor(Color.parseColor("#ff421a"));
+        }
+        else {
+            holder.binding.status.setText("Available");
+            holder.binding.status.setTextColor(Color.parseColor("#1DE9B6"));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

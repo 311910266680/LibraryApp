@@ -1,5 +1,6 @@
 package com.example.myapplication.Borrow;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.myapplication.Constant;
@@ -77,6 +79,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
             @Override
             public void onClick(View v) {
                 applydiscount(discountslist);
+                closeKeyboard(getActivity());
             }
         });
         binding.btnorder.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +156,13 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
                     binding.total.setText(String.valueOf(total));
                 }
             }
+        }
+    }
+    public void closeKeyboard(Activity activity){
+        View view = activity.getCurrentFocus();
+        if(view != null){
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
 

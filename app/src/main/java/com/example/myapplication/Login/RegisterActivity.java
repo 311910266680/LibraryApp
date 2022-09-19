@@ -99,6 +99,4 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this,"Regis Fail !!!", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-}
+    }}

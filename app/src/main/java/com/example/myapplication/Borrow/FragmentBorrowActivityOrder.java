@@ -20,6 +20,7 @@ import com.example.myapplication.Model.District;
 import com.example.myapplication.Model.Province;
 import com.example.myapplication.Model.Ward;
 import com.example.myapplication.Singleton;
+import com.example.myapplication.ViewModels.Borrow.VMBorrowActivityOrder;
 import com.example.myapplication.databinding.FragmentBorrowActivityOrderBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -261,9 +262,8 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(FragmentBorrowActivityOrder.this,"sucessfull", Toast.LENGTH_LONG).show();
-                        backhome();
-
-
+                        VMBorrowActivityOrder.deletelistborrow();
+                        showDialog();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -286,7 +286,8 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(FragmentBorrowActivityOrder.this,"sucessfull", Toast.LENGTH_LONG).show();
-                        backhome();
+                        VMBorrowActivityOrder.deletelistborrow();
+                        showDialog();
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -298,10 +299,9 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
             }
         }
     }
-    private void backhome(){
+
+    private void showDialog(){
         BorrowDialogOrder borrowDialogOrder = new BorrowDialogOrder();
         borrowDialogOrder.show(getSupportFragmentManager(),"ok");
-//        Intent i = new Intent(FragmentBorrowActivityOrder.this, MainActivity.class);
-//        startActivity(i);
     }
 }
