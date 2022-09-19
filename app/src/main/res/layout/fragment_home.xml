@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Hello Tien!"
+                        android:text="Hello "
                         android:textColor="#F21E1C29"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"

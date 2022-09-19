@@ -69,7 +69,7 @@ public class SearchActivity extends AppCompatActivity {
     private void filter(String text){
         List<Book> itemSearchList = new ArrayList<>();
         for(Book itemSearch : mListBook){
-            if(itemSearch.getTitle().toLowerCase().contains(text.toLowerCase())){
+            if(itemSearch.getTitle().toLowerCase().contains(text.toLowerCase())||itemSearch.getAuthor().toLowerCase().contains(text.toLowerCase())||itemSearch.getType().toLowerCase().contains(text.toLowerCase())){
                 itemSearchList.add(itemSearch);
             }
         }

@@ -137,22 +137,22 @@
     </TextView>
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnorder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="60dp"
-        android:text="Order"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/white"
-        app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29"
-        app:strokeColor="#FF5722"
-        app:strokeWidth="1dp">
-    </com.google.android.material.button.MaterialButton>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="#FF5722"
+            android:text="Order"
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29"
+            app:strokeColor="#FF5722"
+            app:strokeWidth="1dp"></com.google.android.material.button.MaterialButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
