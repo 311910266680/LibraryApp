@@ -12,16 +12,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class VMBorrowActivityOrder {
     public static void deletelistborrow(){
-        Constant.DB_USER.child(Constant.ID_USER).child("borrow").removeValue()
+        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        Log.e("TAG",String.valueOf("SUCESS"));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("TAG",String.valueOf(e.getMessage()));
-                    }
-                });
+                        Log.e("TAG",String.valueOf("FAIL"));
+                    }});
     }
 }

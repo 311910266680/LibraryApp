@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +54,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     private FirebaseDatabase firebaseDatabase;
     private List<Discount> discountslist;
     private float discount, discountdisp;
-    private List<BorrowBook> borrowBookList;
+//    private List<BorrowBook> borrowBookList;
     private List<String> listBookBorrowID;
     private FirebaseAuth mauth;
     private VMBorrowFrag vmBorrowFrag;
@@ -65,9 +67,9 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         mauth = FirebaseAuth.getInstance();
 
         vmBorrowFrag = new VMBorrowFrag();
-        borrowBookList = new ArrayList<>();
+//        borrowBookList = new ArrayList<>();
         listBookBorrowID = new ArrayList<>();
-        adapter = new BorrowAdapter(borrowBookList,this,this);
+        adapter = new BorrowAdapter(Singleton.getInstance().getlistborrow(), this,this);
         getlistborrow();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         binding.rcvborrow.setLayoutManager(linearLayoutManager);
@@ -87,7 +89,7 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
             public void onClick(View v) {
 
                 Intent i = new Intent(getActivity(),FragmentBorrowActivityOrder.class);
-                i.putStringArrayListExtra("listidbookborrow", (ArrayList<String>) listBookBorrowID);
+//                i.putStringArrayListExtra("listidbookborrow", (ArrayList<String>) listBookBorrowID);
                 i.putExtra("subtotal",subtotal);
                 i.putExtra("discount",k);
                 i.putExtra("total",total);
@@ -102,13 +104,14 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                borrowBookList.clear();
+//                borrowBookList.clear();
+                Singleton.getInstance().getlistborrow().clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     BorrowBook item = dataSnapshot.getValue(BorrowBook.class);
-                    borrowBookList.add(item);
+                    Singleton.getInstance().getlistborrow().add(item);
                 }
-                vmBorrowFrag.addBookTolistBorrow(borrowBookList);
-                getpricetotal(borrowBookList);
+                vmBorrowFrag.addBookTolistBorrow(Singleton.getInstance().getlistborrow());
+                getpricetotal(Singleton.getInstance().getlistborrow());
                 adapter.notifyDataSetChanged();
             }
             @Override

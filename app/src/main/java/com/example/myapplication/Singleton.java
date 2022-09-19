@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.Borrow.BorrowAdapter;
 import com.example.myapplication.Home.BookAdapter;
 import com.example.myapplication.Home.DetailBookActivity;
 import com.example.myapplication.Home.FilterAdapter;
@@ -27,6 +28,7 @@ public class Singleton {
     private Retrofit retrofit = null;
     public String type;
     private List<Book> listBookmain;
+    public List<BorrowBook> listborrow;
 
     public Singleton(){
 
@@ -122,6 +124,16 @@ public class Singleton {
             }
         });
     }
+    public List<BorrowBook> getlistborrow(){
+        if(listborrow == null){
+            listborrow = new ArrayList<>();
+        }
+        return listborrow;
+    }
+
+
+
+
     public void getBorrowed(List<BorrowBook> listBorrowed, List<Book>listBor,BookAdapter mBookBorrowedAdapter) {
 
         Constant.DB_USER.child(Constant.FU_MAUTH.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
@@ -147,8 +159,6 @@ public class Singleton {
                             mBookBorrowedAdapter.notifyDataSetChanged();
 
                         }
-
-
                     }
 
                     @Override
