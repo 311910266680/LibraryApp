@@ -1,6 +1,9 @@
 package com.example.myapplication.Home;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +42,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         if (Book ==null){
             return;
         }
+//        new DownImageTask(Book.getImage(), holder.Image).execute(Book.getImage());
+
         Picasso.get().load(Book.getImage()).into(holder.Image);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,4 +72,33 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         }
     }
+//    class DownImageTask extends AsyncTask<String, Void, String> {
+//        private String img;
+//        private ImageView imageView;
+//
+//        public DownImageTask(String img, ImageView imageView) {
+//            this.img = img;
+//            this.imageView = imageView;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            Log.e("TAG","onPreExecute");
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            Picasso.get().load(strings[0]);
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String string) {
+//            super.onPostExecute(string);
+//            Log.e("TAG","onPostExecute");
+//            Picasso.get().load(string).into(imageView);
+//
+//        }
+//    }
 }

@@ -29,9 +29,7 @@ public class Singleton {
     public String type;
     private List<Book> listBookmain;
     public List<BorrowBook> listborrow;
-
     public Singleton(){
-
     }
     public static Singleton getInstance(){
         if (instance ==null){

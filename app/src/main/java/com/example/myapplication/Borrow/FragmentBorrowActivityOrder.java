@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import com.example.myapplication.Constant;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.Model.District;
+import com.example.myapplication.Model.Order;
 import com.example.myapplication.Model.Province;
 import com.example.myapplication.Model.Ward;
 import com.example.myapplication.Singleton;
@@ -26,6 +28,9 @@ import com.example.myapplication.databinding.FragmentBorrowActivityOrderBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -317,6 +322,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
             }
         }
     }
+
 
     private void showDialog(){
         BorrowDialogOrder borrowDialogOrder = new BorrowDialogOrder();
