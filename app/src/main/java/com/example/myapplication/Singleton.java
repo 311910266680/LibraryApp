@@ -11,6 +11,7 @@ import com.example.myapplication.Home.DetailBookActivity;
 import com.example.myapplication.Home.FilterAdapter;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ public class Singleton {
     public String type;
     private List<Book> listBookmain;
     public List<BorrowBook> listborrow;
+
     public Singleton(){
     }
     public static Singleton getInstance(){
@@ -37,6 +39,7 @@ public class Singleton {
         }
         return instance;
     }
+
 
     public void getListFilter(List<Book>ListFilter, FilterAdapter filterAdapter){
         Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
@@ -133,8 +136,9 @@ public class Singleton {
 
 
     public void getBorrowed(List<BorrowBook> listBorrowed, List<Book>listBor,BookAdapter mBookBorrowedAdapter) {
-
-        Constant.DB_USER.child(Constant.FU_MAUTH.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
+        DB_USER.child(mauth.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listBorrowed.clear();

@@ -16,12 +16,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private FirebaseAuth mauth;
+    private DatabaseReference DB_USER;
 
     private  String name,age,password,email;
     @Override
@@ -29,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         mauth = FirebaseAuth.getInstance();
+        DB_USER = FirebaseDatabase.getInstance().getReference("Users");
         binding.btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("password",password);
         hashMap.put("email",email);
         hashMap.put("profileImage","");
-        Constant.DB_USER.child(mauth.getUid()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+        DB_USER.child(mauth.getUid()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(RegisterActivity.this,"Register sucessfull", Toast.LENGTH_LONG).show();

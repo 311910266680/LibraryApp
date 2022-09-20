@@ -99,8 +99,9 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
     }
 
     private void loadUserInfo() {
-
-        Constant.DB_USER.child(Constant.ID_USER).addValueEventListener(new ValueEventListener() {
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
+        DB_USER.child(mauth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = ""+snapshot.child("name").getValue();

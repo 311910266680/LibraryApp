@@ -50,12 +50,14 @@ public class PictureActivityy extends AppCompatActivity {
         setContentView(binding.getRoot());
     }
     private void updateProfile(String imageUrl) { //
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
         HashMap<String, Object> hashMap = new HashMap<>();
         if(myuri !=null){
             hashMap.put("profileImage",""+imageUrl);
         }
 
-       Constant.DB_USER.child(Constant.ID_USER)
+       DB_USER.child(mauth.getUid())
                 .updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -75,9 +77,10 @@ public class PictureActivityy extends AppCompatActivity {
 
     }
     private void uploadImage() {
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
 
         //Lay anh moi thay anh cu~
-        String filePath = "ProfileImages/"+Constant.ID_USER;
+        String filePath = "ProfileImages/"+mauth.getUid();
 
         StorageReference reference = FirebaseStorage.getInstance().getReference(filePath);
         reference.putFile(myuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

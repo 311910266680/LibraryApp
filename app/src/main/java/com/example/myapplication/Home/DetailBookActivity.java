@@ -47,6 +47,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     private long dateeee,dayys;
     boolean isInMyFavorite = false;
     private BookAdapter adapterSimilar;
+    private FirebaseAuth mauth;
+    private DatabaseReference DB_USER;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,8 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         VMHomeDetailBook vmHomeDetailBook = new VMHomeDetailBook();
         listSimilar= new ArrayList<>();
         id = getIntent().getIntExtra("id",1);
+        mauth = FirebaseAuth.getInstance();
+        DB_USER = FirebaseDatabase.getInstance().getReference("Users");
         binding.back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +95,6 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
     }
     @Override
     public void ClickQuantityBorrow(int quantity, String date) {
-
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         String current = df.format(calendar.getTime());
@@ -123,7 +126,7 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         hashMap.put("duration", dayconvert);
 
 
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(idborrowbook).setValue(hashMap)
+        DB_USER.child(mauth.getUid()).child("borrowbook").child(idborrowbook).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -138,7 +141,7 @@ public class DetailBookActivity  extends AppCompatActivity implements CLickQuant
         Toast.makeText(getApplicationContext(),"Add sucessfull: " +title,Toast.LENGTH_LONG).show();
     }
     public void checkIsFavorite(Context context, String bookId ){
-        Constant.DB_USER.child(Constant.ID_USER).child("favorite").child(bookId)
+        DB_USER.child(mauth.getUid()).child("favorite").child(bookId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
