@@ -43,10 +43,12 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
 
 
     private FragmentAccountBinding binding;
+    private FirebaseAuth mauth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mauth = FirebaseAuth.getInstance();
 
         loadUserInfo();
         binding = FragmentAccountBinding.inflate(inflater,container,false);
@@ -59,7 +61,7 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
         binding.notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(getActivity(),NotificationsActivity.class));
+                startActivity(new Intent(getActivity(),NotificationsActivity.class));
             }
         });
         binding.setting.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +86,9 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
         binding.btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constant.FU_MAUTH.signOut();
-                FirebaseUser firebaseUser= Constant.FU_MAUTH.getCurrentUser();
-                if(firebaseUser==null){
+                mauth.signOut();
+                FirebaseUser firebaseUser= mauth.getCurrentUser();
+                if(firebaseUser == null){
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
                 }
