@@ -11,6 +11,7 @@ import com.example.myapplication.Home.DetailBookActivity;
 import com.example.myapplication.Home.FilterAdapter;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
+import com.example.myapplication.Model.Order;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -135,16 +136,21 @@ public class Singleton {
 
 
 
-    public void getBorrowed(List<BorrowBook> listBorrowed, List<Book>listBor,BookAdapter mBookBorrowedAdapter) {
+    public void getBorrowed(List<Order> listOrder,List<BorrowBook> listBorrowed, List<Book>listBor,BookAdapter mBookBorrowedAdapter) {
         FirebaseAuth mauth = FirebaseAuth.getInstance();
-        DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
-        DB_USER.child(mauth.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
+         Constant.DB_ORDER.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listBorrowed.clear();
+                listOrder.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    BorrowBook borrowBook = dataSnapshot.getValue(BorrowBook.class);
-                    listBorrowed.add(borrowBook);
+                    Order oder = dataSnapshot.getValue(Order.class);
+                    listOrder.add(oder);
+                }
+                listBorrowed.clear();
+                for (Order order: listOrder){
+                    if (order.getIduser().equals(mauth.getUid())){
+                        listBorrowed.addAll(order.getBorrowbook());
+                    }
                 }
                 Constant.DB_BOOK.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -158,9 +164,9 @@ public class Singleton {
                                 }
 
                             }
-                            mBookBorrowedAdapter.notifyDataSetChanged();
 
-                        }
+
+                        }  mBookBorrowedAdapter.notifyDataSetChanged();
                     }
 
                     @Override

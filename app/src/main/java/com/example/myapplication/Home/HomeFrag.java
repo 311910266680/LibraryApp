@@ -63,9 +63,9 @@ public class HomeFrag extends Fragment {
         ListType = new ArrayList<>();
         listBor = new ArrayList<>();
         listBorrowed = new ArrayList<>();
+        orderList = new ArrayList<>();
         mauth  = FirebaseAuth.getInstance();
         DB_USER = FirebaseDatabase.getInstance().getReference("Users");
-        aaa();
         binding.notifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +74,7 @@ public class HomeFrag extends Fragment {
         });
         mBookAdapter = new BookAdapter(listBookmain, getContext());
 
-        mBookBorrowedAdapter = new BookAdapter(booksdisplayborrowed, getContext());
+        mBookBorrowedAdapter = new BookAdapter(listBor, getContext());
         mTypeAdapter = new TypeAdapter(ListType,getContext());
 
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -95,7 +95,7 @@ public class HomeFrag extends Fragment {
         loadUserInfo();
         Singleton.getInstance().getBookAvailable(listBookmain,mBookAdapter);
         Singleton.getInstance().getListBook();
-        Singleton.getInstance().getBorrowed(listBorrowed,listBor,mBookBorrowedAdapter);
+        Singleton.getInstance().getBorrowed(orderList,listBorrowed,listBor,mBookBorrowedAdapter);
         return  binding.getRoot();
     }
 
@@ -135,41 +135,6 @@ public class HomeFrag extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-    }
-    /// continue
-    public void aaa(){
-        orderList = new ArrayList<>();
-        borrowBookListget = new ArrayList<>();
-        booksdisplayborrowed = new ArrayList<>();
-        Constant.DB_ORDER.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                borrowBookListget.clear();
-                orderList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Order order = dataSnapshot.getValue(Order.class);
-                    orderList.add(order);
-                    for(int i = 0; i< orderList.size(); i++){
-                        if(mauth.getUid().equals(orderList.get(i).getIduser())){
-                            borrowBookListget.addAll(orderList.get(i).getBorrowbook());
-                            addToList(borrowBookListget,booksdisplayborrowed);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    public void addToList(List<BorrowBook> listBorrowed, List<Book> listbook){
-        for(int i = 0; i< listBorrowed.size(); i++){
-            while (listbook.size() < 10 &&  !listbook.contains(listBorrowed.get(i).getBook())) {
-                listbook.add(listBorrowed.get(i).getBook());
-            }
-        }
     }
 
 }
