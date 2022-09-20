@@ -1,7 +1,10 @@
 package com.example.myapplication.Home;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import com.example.myapplication.Home.SearchActivity;
 import com.example.myapplication.Home.TypeAdapter;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
+import com.example.myapplication.Model.Order;
 import com.example.myapplication.Model.Type;
 import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
@@ -45,6 +49,10 @@ public class HomeFrag extends Fragment {
     private List<Type> ListType;
     private List<Book> listBookmain,listBor;
     private List<BorrowBook> listBorrowed;
+
+    private List<BorrowBook> borrowBookListget;
+    private List<Book> booksdisplayborrowed;
+    private List<Order> orderList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,6 +61,7 @@ public class HomeFrag extends Fragment {
         ListType = new ArrayList<>();
         listBor = new ArrayList<>();
         listBorrowed = new ArrayList<>();
+        aaa();
         binding.notifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +70,7 @@ public class HomeFrag extends Fragment {
         });
         mBookAdapter = new BookAdapter(listBookmain, getContext());
 
-        mBookBorrowedAdapter = new BookAdapter(listBor, getContext());
+        mBookBorrowedAdapter = new BookAdapter(booksdisplayborrowed, getContext());
         mTypeAdapter = new TypeAdapter(ListType,getContext());
 
         LinearLayoutManager hori = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -122,6 +131,41 @@ public class HomeFrag extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+    /// continue
+    public void aaa(){
+        orderList = new ArrayList<>();
+        borrowBookListget = new ArrayList<>();
+        booksdisplayborrowed = new ArrayList<>();
+        Constant.DB_ORDER.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                borrowBookListget.clear();
+                orderList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Order order = dataSnapshot.getValue(Order.class);
+                    orderList.add(order);
+                    for(int i = 0; i< orderList.size(); i++){
+                        if(Constant.ID_USER.equals(orderList.get(i).getIduser())){
+                            borrowBookListget.addAll(orderList.get(i).getBorrowbook());
+                            addToList(borrowBookListget,booksdisplayborrowed);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void addToList(List<BorrowBook> listBorrowed, List<Book> listbook){
+        for(int i = 0; i< listBorrowed.size(); i++){
+            while (listbook.size() < 10 &&  !listbook.contains(listBorrowed.get(i).getBook())) {
+                listbook.add(listBorrowed.get(i).getBook());
+            }
+        }
     }
 
 }

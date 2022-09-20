@@ -24,6 +24,7 @@ import com.example.myapplication.Login.RegisterActivity;
 import com.example.myapplication.Model.Book;
 import com.example.myapplication.Model.BorrowBook;
 import com.example.myapplication.Model.Discount;
+import com.example.myapplication.Model.Order;
 import com.example.myapplication.R;
 import com.example.myapplication.Singleton;
 import com.example.myapplication.ViewModels.Borrow.VMBorrowFrag;
@@ -59,6 +60,8 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
     private FirebaseAuth mauth;
     private VMBorrowFrag vmBorrowFrag;
     private String k ="";
+    private List<BorrowBook> borrowBookListget;
+    private List<Order> orderList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,18 +90,24 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
         binding.btnorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Singleton.getInstance().getlistborrow().size() == 0){
+                    Toast.makeText(getContext(),"Borrow is empty !!!",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent i = new Intent(getActivity(), FragmentBorrowActivityOrder.class);
+                    i.putExtra("subtotal", subtotal);
+                    i.putExtra("discount", k);
+                    i.putExtra("total", total);
+                    startActivity(i);
 
-                Intent i = new Intent(getActivity(),FragmentBorrowActivityOrder.class);
-//                i.putStringArrayListExtra("listidbookborrow", (ArrayList<String>) listBookBorrowID);
-                i.putExtra("subtotal",subtotal);
-                i.putExtra("discount",k);
-                i.putExtra("total",total);
-                startActivity(i);
+                }
             }
         });
 
+
         return binding.getRoot();
     }
+
 
     public void getlistborrow(){
         Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").addValueEventListener(new ValueEventListener() {
