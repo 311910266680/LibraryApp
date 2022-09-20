@@ -110,7 +110,9 @@ public class BorrowFrag extends Fragment implements ClickDialogDelete,ClickShowD
 
 
     public void getlistborrow(){
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").addValueEventListener(new ValueEventListener() {
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
+        DB_USER.child(mauth.getUid()).child("borrowbook").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                borrowBookList.clear();

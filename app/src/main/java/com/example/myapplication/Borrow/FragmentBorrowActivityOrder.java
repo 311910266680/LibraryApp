@@ -250,6 +250,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
         discount = getIntent().getIntExtra("discount",1);
     }
     private void addOrderFirebase(){
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
 
         if(binding.edtreceivename.getText().toString().isEmpty()){
             binding.edtreceivename.setError("Enter Receivename");
@@ -272,7 +273,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                 hashMap.put("borrowbook",Singleton.getInstance().getlistborrow());
                 hashMap.put("Receivename",name);
                 hashMap.put("hoursreceive",binding.tvhour.getText().toString());
-                hashMap.put("iduser", Constant.ID_USER);
+                hashMap.put("iduser", mauth.getUid());
                 hashMap.put("note",note);
                 hashMap.put("days",current);
                 hashMap.put("type","Pick up at the library");
@@ -300,7 +301,7 @@ public class FragmentBorrowActivityOrder extends AppCompatActivity{
                 hashMap.put("borrowbook",Singleton.getInstance().getlistborrow());
                 hashMap.put("Receivename",name);
                 hashMap.put("address",address);
-                hashMap.put("iduser",Constant.ID_USER);
+                hashMap.put("iduser",mauth.getUid());
                 hashMap.put("note",note);
                 hashMap.put("days",current);
                 hashMap.put("type","Shipping");

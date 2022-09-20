@@ -53,6 +53,8 @@ public class HomeFrag extends Fragment {
     private List<BorrowBook> borrowBookListget;
     private List<Book> booksdisplayborrowed;
     private List<Order> orderList;
+    FirebaseAuth mauth;
+    private DatabaseReference DB_USER;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class HomeFrag extends Fragment {
         ListType = new ArrayList<>();
         listBor = new ArrayList<>();
         listBorrowed = new ArrayList<>();
+        mauth  = FirebaseAuth.getInstance();
+        DB_USER = FirebaseDatabase.getInstance().getReference("Users");
         aaa();
         binding.notifi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +121,7 @@ public class HomeFrag extends Fragment {
     }
     private void loadUserInfo() {
 
-        Constant.DB_USER.child(Constant.ID_USER).addValueEventListener(new ValueEventListener() {
+        DB_USER.child(mauth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = ""+snapshot.child("name").getValue();
@@ -146,7 +150,7 @@ public class HomeFrag extends Fragment {
                     Order order = dataSnapshot.getValue(Order.class);
                     orderList.add(order);
                     for(int i = 0; i< orderList.size(); i++){
-                        if(Constant.ID_USER.equals(orderList.get(i).getIduser())){
+                        if(mauth.getUid().equals(orderList.get(i).getIduser())){
                             borrowBookListget.addAll(orderList.get(i).getBorrowbook());
                             addToList(borrowBookListget,booksdisplayborrowed);
                         }

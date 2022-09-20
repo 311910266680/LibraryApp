@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private FirebaseAuth mauth;
     private FirebaseUser firebaseUser;
+    private DatabaseReference DB_USER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mauth = FirebaseAuth.getInstance();
         firebaseUser = mauth.getCurrentUser();
+        DB_USER = FirebaseDatabase.getInstance().getReference("Users");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
@@ -101,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            Constant.DB_USER.child(mauth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            DB_USER.child(mauth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     progressDialog.dismiss();

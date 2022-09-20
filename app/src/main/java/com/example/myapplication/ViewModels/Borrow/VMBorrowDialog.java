@@ -3,6 +3,7 @@ package com.example.myapplication.ViewModels.Borrow;
 import android.widget.TextView;
 
 import com.example.myapplication.Constant;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -12,6 +13,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class VMBorrowDialog {
+    FirebaseAuth mauth = FirebaseAuth.getInstance();
+    DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
     public VMBorrowDialog() {
     }
     public void VMUpdateBorrowDialog(String id, String datestart, String date, int duration, int pricetotal, int price, int quantity){
@@ -38,10 +41,10 @@ public class VMBorrowDialog {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(id).child("count").setValue(quantity);
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(id).child("expirationdate").setValue(date);
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(id).child("duration").setValue(duration);
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(id).child("pricetotal").setValue(pricetotal);
+        DB_USER.child(mauth.getUid()).child("borrowbook").child(id).child("count").setValue(quantity);
+        DB_USER.child(mauth.getUid()).child("borrowbook").child(id).child("expirationdate").setValue(date);
+        DB_USER.child(mauth.getUid()).child("borrowbook").child(id).child("duration").setValue(duration);
+        DB_USER.child(mauth.getUid()).child("borrowbook").child(id).child("pricetotal").setValue(pricetotal);
     }
 
 }

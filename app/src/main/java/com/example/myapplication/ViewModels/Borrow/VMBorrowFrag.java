@@ -15,6 +15,7 @@ import com.example.myapplication.Model.Discount;
 import com.example.myapplication.Singleton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +59,9 @@ public class VMBorrowFrag {
         });
     }
     public void deleteBorrowBook(String id, Context context){
-        Constant.DB_USER.child(Constant.ID_USER).child("borrowbook").child(id).removeValue()
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        DatabaseReference DB_USER = FirebaseDatabase.getInstance().getReference("Users");
+        DB_USER.child(mauth.getUid()).child("borrowbook").child(id).removeValue()
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
