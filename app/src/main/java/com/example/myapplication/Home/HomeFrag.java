@@ -50,8 +50,6 @@ public class HomeFrag extends Fragment {
     private List<Book> listBookmain,listBor;
     private List<BorrowBook> listBorrowed;
 
-    private List<BorrowBook> borrowBookListget;
-    private List<Book> booksdisplayborrowed;
     private List<Order> orderList;
     FirebaseAuth mauth;
     private DatabaseReference DB_USER;
@@ -64,7 +62,7 @@ public class HomeFrag extends Fragment {
         listBor = new ArrayList<>();
         listBorrowed = new ArrayList<>();
         orderList = new ArrayList<>();
-        mauth  = FirebaseAuth.getInstance();
+        mauth  = FirebaseAuth .getInstance();
         DB_USER = FirebaseDatabase.getInstance().getReference("Users");
         binding.notifi.setOnClickListener(new View.OnClickListener() {
             @Override
