@@ -50,6 +50,7 @@
         <activity android:name=".Home.DetailBookActivity" />
         <activity android:name=".Account.NotificationsActivity" />
         <activity android:name=".Borrow.FragmentBorrowActivityOrder" />
+        <activity android:name=".Account.HistoryActivity" />
     </application>
 
 </manifest>

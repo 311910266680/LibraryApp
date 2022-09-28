@@ -10,7 +10,7 @@ public class Order {
     private String id;
     private String iduser;
     private String note;
-    private String type;
+    private String type,address;
 
     public Order() {
     }

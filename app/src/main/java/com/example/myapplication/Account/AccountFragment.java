@@ -55,7 +55,7 @@ public class AccountFragment extends Fragment implements ClickChosepicture{
         binding.history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Chua lam cai nay",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getActivity(),HistoryActivity.class));
             }
         });
         binding.notification.setOnClickListener(new View.OnClickListener() {

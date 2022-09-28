@@ -29,6 +29,10 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.Viewholder
         this.mclickdialogdelete = clickdialogdelete;
         this.mclickshowdialog = clickshowdialog;
     }
+    public BorrowAdapter(List<BorrowBook> listbookborrow) {
+        this.listbookborrow = listbookborrow;
+
+    }
 
     @NonNull
     @Override

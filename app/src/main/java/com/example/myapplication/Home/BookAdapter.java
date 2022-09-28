@@ -42,7 +42,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         if (Book ==null){
             return;
         }
-//        new DownImageTask(Book.getImage(), holder.Image).execute(Book.getImage());
 
         Picasso.get().load(Book.getImage()).into(holder.Image);
 
@@ -72,33 +71,4 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         }
     }
-//    class DownImageTask extends AsyncTask<String, Void, String> {
-//        private String img;
-//        private ImageView imageView;
-//
-//        public DownImageTask(String img, ImageView imageView) {
-//            this.img = img;
-//            this.imageView = imageView;
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            Log.e("TAG","onPreExecute");
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            Picasso.get().load(strings[0]);
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String string) {
-//            super.onPostExecute(string);
-//            Log.e("TAG","onPostExecute");
-//            Picasso.get().load(string).into(imageView);
-//
-//        }
-//    }
 }
